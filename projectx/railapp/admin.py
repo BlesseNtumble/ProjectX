@@ -37,7 +37,7 @@ class AdminRoles(admin.ModelAdmin):
 class AdminStations(admin.ModelAdmin):
     list_display = ['get_name', 'get_start_date', 'get_end_date']
     list_display_links = list_display
-    search_fields = list_display
+    search_fields = ['name']
 
     def get_form(self, request, obj=None, change=False, **kwargs):
         form = super().get_form(request, obj, change, **kwargs)
