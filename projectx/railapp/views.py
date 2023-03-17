@@ -29,7 +29,7 @@ def logout_page(request):
 
 class LoginUser(LoginView):
     form_class = RegisterForms.LoginUserForm
-    template_name = template + '/login.html'
+    template_name = template + '/auth.html'
 
     def get_success_url(self):
         return reverse_lazy('index');
