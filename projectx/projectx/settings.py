@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'debug_toolbar',
-    'railapp.apps.RailappConfig'
+    'django_dump_load_utf8',
+    'railapp.apps.RailappConfig',
 ]
 
 MIDDLEWARE = [
