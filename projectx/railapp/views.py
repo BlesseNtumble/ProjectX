@@ -57,6 +57,12 @@ def auth(request):
     return render(request, template + '/auth.html', context=context)
 
 
+def reg(request):
+    f = RegisterForms.RegisterUserForm
+    context = {'form':f, 'title':'Регистрация'}
+    return render(request, template + '/auth.html', context=context)
+
+
 class LoginUser(LoginView):
     form_class = RegisterForms.LoginUserForm
     template_name = template + '/auth.html'
