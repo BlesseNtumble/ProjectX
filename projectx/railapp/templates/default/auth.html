@@ -12,7 +12,7 @@
 </head>
 <body class="text-center">
 <div class="container" style="width:50%">
-    <form>
+    <form method="post">
         {{form.non_field_errors}}
         {% csrf_token %} {% for f in form %} {{f.label}}: {{ f }}
         {{ f.errors }}

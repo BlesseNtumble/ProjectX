@@ -1,10 +1,11 @@
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse_lazy
+from django.views.generic import CreateView
 
 from railapp import api
 from railapp.apps import template
@@ -51,21 +52,23 @@ def logout_page(request):
     return redirect('login')
 
 
-def auth(request):
-    f = RegisterForms.LoginUserForm
-    context = {'form':f, 'title':'Авторизация'}
-    return render(request, template + '/auth.html', context=context)
-
-
-def reg(request):
-    f = RegisterForms.RegisterUserForm
-    context = {'form':f, 'title':'Регистрация'}
-    return render(request, template + '/auth.html', context=context)
-
-
 class LoginUser(LoginView):
     form_class = RegisterForms.LoginUserForm
     template_name = template + '/auth.html'
+    extra_context = {'title': 'Авторизация'}
 
     def get_success_url(self):
-        return reverse_lazy('index');
+        return reverse_lazy('index')
+
+
+class RegisterUser(CreateView):
+    form_class = RegisterForms.RegisterUserForm
+    template_name = template + '/auth.html'
+    success_url = reverse_lazy('login')
+    extra_context = {'title': 'Регистрация'}
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('index')
+
