@@ -65,3 +65,21 @@ class AdminStations(admin.ModelAdmin):
             return
 
         obj.save()
+
+@admin.register(StationList)
+class AdminStationList(admin.ModelAdmin):
+    list_display = ['list_id', 'station']
+    list_display_links = list_display
+    search_fields = list_display
+
+@admin.register(ChatList)
+class AdminChatList(admin.ModelAdmin):
+    list_display = ['chat_name', 'created_date', 'closed_date', 'is_readonly']
+    list_display_links = list_display
+    search_fields = list_display
+
+@admin.register(Chat)
+class AdminChat(admin.ModelAdmin):
+    list_display = ['chat_id', 'user', 'text', 'date']
+    list_display_links = list_display
+    search_fields = list_display

@@ -29,3 +29,31 @@ class Stations(models.Model):
     class Meta:
         verbose_name = 'Станция'
         verbose_name_plural = 'Станции'
+
+
+class StationList(models.Model):
+    list_id = models.IntegerField(null=False, blank=False)
+    station = models.ForeignKey(Stations, on_delete=models.CASCADE, null=False, blank=False)
+
+    def __str__(self):
+        return f'[{self.list_id}] {self.station}'
+
+class ChatList(models.Model):
+    chat_name = models.CharField(max_length=256, null=False, blank=False)
+    created_date = models.DateTimeField(null=False, blank=False)
+    closed_date = models.DateTimeField(null=True, blank=True)
+    is_readonly = models.BooleanField()
+
+    def __str__(self):
+        return f'{self.chat_name}'
+
+class Chat(models.Model):
+    chat_id = models.ForeignKey(ChatList, on_delete=models.CASCADE, null=False, blank=False)
+    user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True)
+    text = models.TextField(null=False, blank=False)
+    date = models.DateTimeField(null=False, blank=False)
+
+    def __str__(self):
+        return f'[{self.chat_id}] <{self.date}> {self.user}: {self.text}'
+
+
