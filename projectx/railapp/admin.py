@@ -7,20 +7,29 @@ from railapp.models import *
 
 @admin.register(CustomUser)
 class AdminCustomUser(admin.ModelAdmin):
-    list_display = ['username', 'get_role', 'is_staff', 'is_active']
+    list_display = ['username', 'get_role', 'is_staff', 'is_active', 'get_number_route', 'get_number_wagon']
     list_display_links = list_display
     search_fields = list_display
 
     def get_form(self, request, obj=None, change=False, **kwargs):
         form = super().get_form(request, obj, change, **kwargs)
         form.base_fields['role'].label = 'Роль'
+        form.base_fields['number_route'].label = 'Номер рейса'
+        form.base_fields['number_wagon'].label = 'Номер вагона'
         return form
 
     def get_role(self, obj):
-        result = Roles.objects.filter(id=obj.role_id).first()
-        return result
+        return obj.role
+
+    def get_number_route(self, obj):
+        return obj.number_route
+
+    def get_number_wagon(self, obj):
+        return obj.number_wagon
 
     get_role.short_description = 'Роль'
+    get_number_route.short_description = 'Номер рейса'
+    get_number_wagon.short_description = 'Номер вагона'
 
 @admin.register(Roles)
 class AdminRoles(admin.ModelAdmin):
