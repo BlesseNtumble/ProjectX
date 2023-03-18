@@ -38,6 +38,11 @@ class StationList(models.Model):
     def __str__(self):
         return f'[{self.list_id}] {self.station}'
 
+    class Meta:
+        verbose_name = 'Маршрутный лист'
+        verbose_name_plural = 'Маршрутные листы'
+
+
 class ChatList(models.Model):
     chat_name = models.CharField(max_length=256, null=False, blank=False)
     created_date = models.DateTimeField(null=False, blank=False)
@@ -46,6 +51,11 @@ class ChatList(models.Model):
 
     def __str__(self):
         return f'{self.chat_name}'
+
+
+    class Meta:
+        verbose_name = 'Список чатов'
+        verbose_name_plural = 'Список чатов'
 
 class Chat(models.Model):
     chat_id = models.ForeignKey(ChatList, on_delete=models.CASCADE, null=False, blank=False)
@@ -56,4 +66,6 @@ class Chat(models.Model):
     def __str__(self):
         return f'[{self.chat_id}] <{self.date}> {self.user}: {self.text}'
 
-
+    class Meta:
+        verbose_name = 'Чат'
+        verbose_name_plural = 'Чат'
