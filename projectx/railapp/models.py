@@ -20,8 +20,6 @@ class CustomUser(AbstractUser):
 
 class Stations(models.Model):
     name = models.CharField(max_length=256, null=False, blank=False)
-    start_date = models.DateTimeField(null=False, blank=False)
-    end_date = models.DateTimeField(null=False, blank=False)
 
     def __str__(self):
         return f'{self.name}'
@@ -34,6 +32,8 @@ class Stations(models.Model):
 class StationList(models.Model):
     list_id = models.IntegerField(null=False, blank=False)
     station = models.ForeignKey(Stations, on_delete=models.CASCADE, null=False, blank=False)
+    start_date = models.DateTimeField(null=False, blank=False)
+    end_date = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return f'[{self.list_id}] {self.station}'
