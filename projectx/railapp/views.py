@@ -17,7 +17,7 @@ from railapp.forms import RegisterForms
 @login_required(login_url='/login')
 def index(request):
     context = {'title': 'РЖД Контент'}
-    print(api.get_current_station())
+    print(api.get_current_station(1))
 
     return render(request, template + '/index.html', context=context)
 
