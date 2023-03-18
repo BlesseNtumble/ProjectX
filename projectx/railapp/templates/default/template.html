@@ -10,16 +10,50 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
+<nav class="navbar navbar-dark row" style="background: #C7C5C5; height:10%; padding-inline: 50px;">
+    <div class="container">
+        <button class="navbar-toggler ml-1" type="button" data-bs-toggle="offcanvas" href="#offcanvasExample"
+                role="button" aria-controls="offcanvasExample"
+                style="color: #C52E32;    border-color: #C52E32;    line-height: 2;">
+            <img src="{% static 'icons/list.svg' %}">
+        </button>
 
-<nav class="navbar navbar-dark row" style="background: #C7C5C5;">
-  <div class="container-fluid ">
-    <button class="navbar-toggler ml-1"  type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation" style="color: #C52E32;">
-      <img src="{% static 'icons/list.svg' %}">
-    </button>
-
-    <img src="{% static 'icons/logo.svg' %}">
-  </div>
+        <img src="{% static 'icons/logo.svg' %}">
+    </div>
 </nav>
 Здарова, Da{{ user.role }}!
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Меню</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="container">
+            <div class="row">
+                <button class="btn">
+                    <a href="{% url 'profile' %}">
+                        Текущие рейсы
+                    </a>
+                </button>
+                <button class="btn">
+                    <a href="{% url 'chat' %}">
+                        Чат
+                    </a>
+                </button>
+                <button class="btn">
+                    <a href="{% url 'routes' %}">
+                        Маршрут следования
+                    </a>
+                </button>
+                <button class="btn">
+                    <a href="{% url 'settings' %}">
+                        Настройки
+                    </a>
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
