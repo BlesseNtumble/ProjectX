@@ -16,8 +16,8 @@ class Roles(models.Model):
 
 class CustomUser(AbstractUser):
     role = models.ForeignKey(Roles, on_delete=models.SET_NULL, null=True, blank=False)
-    number_route = models.CharField(max_length=6, null=False, blank=False)
-    number_wagon = models.IntegerField(null=False, blank=False)
+    number_route = models.CharField(max_length=6, null=True, blank=False)
+    number_wagon = models.IntegerField(null=True, blank=False)
 
 class Stations(models.Model):
     name = models.CharField(max_length=256, null=False, blank=False)
