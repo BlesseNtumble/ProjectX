@@ -12,16 +12,18 @@
 <body>
 <nav class="navbar navbar-dark row" style="background: #C7C5C5; height:10%; padding-inline: 50px;">
     <div class="container">
-        <button class="navbar-toggler ml-1" type="button" data-bs-toggle="offcanvas" href="#offcanvasExample"
+        <div style="color: #C52E32;">
+        <button class="navbar-toggler ml-2" type="button" data-bs-toggle="offcanvas" href="#offcanvasExample"
                 role="button" aria-controls="offcanvasExample"
                 style="color: #C52E32;    border-color: #C52E32;    line-height: 2;">
             <img src="{% static 'icons/list.svg' %}">
         </button>
-
+            {{title}}
+</div>
         <img src="{% static 'icons/logo.svg' %}">
     </div>
 </nav>
-Здарова, Da{{ user.role }}!
+
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasExampleLabel">Меню</h5>
@@ -30,27 +32,21 @@
     <div class="offcanvas-body">
         <div class="container">
             <div class="row">
-                <button class="btn">
-                    <a href="{% url 'profile' %}">
+                    <a href="{% url 'profile' %}" class="btn">
                         Текущие рейсы
                     </a>
-                </button>
-                <button class="btn">
-                    <a href="{% url 'chat' %}">
+                    <a href="{% url 'chat' %}"  class="btn">
                         Чат
                     </a>
-                </button>
-                <button class="btn">
-                    <a href="{% url 'routes' %}">
+                    <a href="{% url 'routes' %}" class="btn">
                         Маршрут следования
                     </a>
-                </button>
-                <button class="btn">
-                    <a href="{% url 'settings' %}">
+                    <a href="{% url 'settings' %}"  class="btn">
                         Настройки
                     </a>
-                </button>
-
+                <a href="{% url 'logout' %}"  class="btn">
+                        Выйти
+                    </a>
             </div>
         </div>
     </div>
