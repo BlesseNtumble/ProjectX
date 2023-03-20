@@ -1,1 +1,41 @@
 {% extends './template.html' %}
+
+{% load static %}
+{% block content %}
+<div class="row" style="height:100%;">
+    <div>
+        <h1>
+            Данные о пользователе
+        </h1>
+        <h4>
+            Номер рейса
+        </h4>
+        <div>
+            <p style="
+                background-color: #767575;
+                color: #FFFFFF;
+                ">
+                {{ reys }}
+            </p>
+        </div>
+        <h4>
+            Номер вагона
+        </h4>
+        <div>
+            <p style="
+                background-color: #767575;
+                color: #FFFFFF;
+                ">
+                {{ wagoon }}
+            </p>
+        </div>
+    </div>
+    <div style="
+    direction: rtl;
+">
+        <a class="btn" href="{% url 'logout' %}">
+            <img src="{% static 'icons/door-open.svg' %}">
+        </a>
+    </div>
+</div>
+{% endblock %}

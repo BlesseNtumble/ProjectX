@@ -30,7 +30,9 @@ def chat(request):
 
 @login_required(login_url='/login')
 def profile(request):
-    context = {'title': 'Профиль'}
+    reys = 7978812
+    wagoon = 13
+    context = {'title': 'Профиль', 'reys': reys, 'wagoon': wagoon}
     return render(request, template + '/profile.html', context=context)
 
 
