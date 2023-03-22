@@ -10,65 +10,61 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
-<nav class="navbar navbar-dark row" style="background: #C7C5C5; height:10%; padding-inline: 50px;">
-    <div class="container">
-        <div style="color: #C52E32;">
-            <button class="navbar-toggler ml-2" type="button" data-bs-toggle="offcanvas" href="#offcanvasExample"
-                    role="button" aria-controls="offcanvasExample"
-                    style="color: #C52E32;    border-color: #C52E32;    line-height: 2;">
-                <img src="{% static 'icons/list.svg' %}">
-            </button>
+<nav class="navbar navbar-dark row" style="background: #C7C5C5; margin-left:0px">
+    <div class="col">
+        <button class="navbar-toggler ml-2" type="button" data-bs-toggle="offcanvas" href="#offcanvasExample"
+                role="button" aria-controls="offcanvasExample"
+                style="color: #C52E32;    border-color: #C52E32;    line-height: 2;">
+            <img src="{% static 'icons/list.svg' %}">
+        </button>
+    </div>
+    <div class="col-9">
+        <h2 style="color: #C52E32;">
             {{title}}
-        </div>
+        </h2>
+    </div>
+    <div class="col">
         <img src="{% static 'icons/logo.svg' %}">
     </div>
 </nav>
-<div class="container"  style="height:90%;">
+<div class="container overflow-hidden">
     {% block content %}{% endblock %}
 </div>
 
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Меню</h5>
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel" style="color: #C52E32;">Меню</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
     </div>
-    <div class="offcanvas-body">
-        <div class="container" style="
-            height: 90%;
-            ">
-            <div class="row" style="height: 100%">
-                <div class="row">
-                    <a href="{% url 'profile' %}" class="btn">
-                        Текущие рейсы
-                    </a>
-                    <a href="{% url 'chat' %}" class="btn">
-                        Чат
-                    </a>
-                    <a href="{% url 'routes' %}" class="btn">
-                        Маршрут следования
-                    </a>
-                    <a href="{% url 'settings' %}" class="btn">
-                        Настройки
-                    </a>
-                </div>
-                <div style="
-                    display: flex;
-                    align-items: flex-end;
-                    justify-content: center;
-                    ">
-                    <a class="btn btn-danger btn-circle" style="width: 64px;
-                        height: 64px;
-                        border-radius: 31px;
+    <div class="offcanvas-body d-flex">
+        <div class="row align-items-flex-end justify-content-center">
+            <a href="{% url 'profile' %}" class="btn">
+                <h4 style="color: #C52E32;">
+                    Текущие рейсы
+                </h4>
+            </a>
+            <a href="{% url 'chat' %}" class="btn">
+                <h4 style="color: #C52E32;">
+                    Чат
+                </h4>
+            </a>
+            <a href="{% url 'routes' %}" class="btn">
+                <h4 style="color: #C52E32;">
+                    Маршрут следования
+                </h4>
+            </a>
+            <a href="{% url 'settings' %}" class="btn">
+                <h4 style="color: #C52E32;">
+                    Настройки
+                </h4>
+            </a>
+            <a class="btn btn-danger btn-circle" style="width: 80px;
+                        height: 80px;
+                        border-radius: 40px;
                         text-align: center;
-                        padding-left: 0;
-                        padding-right: 0;
                         font-size: 20px;">
-sos
-                    </a>
-
-                </div>
-            </div>
-
+                sos
+            </a>
         </div>
     </div>
 </div>

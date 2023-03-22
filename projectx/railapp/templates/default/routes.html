@@ -1,1 +1,81 @@
 {% extends './template.html' %}
+
+{% load static %}
+{% block content %}
+<div class="p-1">
+    {% if routes %}
+    <div class="row">
+        <div class="col-1 d-flex align-content-center" style="
+    flex-wrap: wrap;
+    justify-content: center;
+">
+            <div class="btn btn-danger btn-circle d-flex align-items-center justify-content-center" style="
+                        width:40px;
+                        height: 40px;
+                        border-radius: 70px;
+                        "><a class="btn btn-circle" style="
+                        width: 24px;
+                        height: 24px;
+                        border-radius: 20px;
+                        background-color:#000000;
+                        ">
+            </a>
+            </div>
+
+        </div>
+        <div class="col">
+            <h2>
+                Станция 1
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1 d-flex" style="
+    flex-wrap: wrap;
+    justify-content: center;
+">
+            <div class="vr" style="color:#C52E32;opacity:1;width: 5px;height: 100%;"></div>
+        </div>
+        <div class="col">
+            <h3>
+                Время
+            </h3>
+        </div>
+    </div>
+
+    {% for el in routes %}
+    <div class="row">
+        <div class="col-1 d-flex align-content-center" style="
+    flex-wrap: wrap;
+    justify-content: center;
+">
+            <a class="btn btn-danger btn-circle" style="
+                        width: 24px;
+                        height: 24px;
+                        border-radius: 20px;
+                        ">
+            </a>
+        </div>
+        <div class="col">
+            <h4>
+                Станция {{ forloop.counter }}
+            </h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1 d-flex" style="
+    flex-wrap: wrap;
+    justify-content: center;
+">
+            <div class="vr" style="color:#C52E32;opacity:1;width: 5px;height: 100%;"></div>
+        </div>
+        <div class="col">
+            <p>
+                Время
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

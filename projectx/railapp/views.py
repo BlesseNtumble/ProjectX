@@ -38,7 +38,8 @@ def profile(request):
 
 @login_required(login_url='/login')
 def routes(request):
-    context = {'title': 'Маршрут следования'}
+    routes={1,2}
+    context = {'title': 'Маршрут следования', 'routes': routes}
     return render(request, template + '/routes.html', context=context)
 
 

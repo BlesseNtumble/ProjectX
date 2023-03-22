@@ -2,8 +2,7 @@
 
 {% load static %}
 {% block content %}
-<div class="row" style="height:100%;">
-    <div>
+<div style="height:100%;">
         <h1>
             Данные о пользователе
         </h1>
@@ -11,31 +10,24 @@
             Номер рейса
         </h4>
         <div>
-            <p style="
+            <h2 style="
                 background-color: #767575;
                 color: #FFFFFF;
                 ">
                 {{ reys }}
-            </p>
+            </h2>
         </div>
         <h4>
             Номер вагона
         </h4>
         <div>
-            <p style="
+            <h2 style="
                 background-color: #767575;
                 color: #FFFFFF;
                 ">
                 {{ wagoon }}
-            </p>
+            </h2>
         </div>
-    </div>
-    <div style="
-    direction: rtl;
-">
-        <a class="btn" href="{% url 'logout' %}">
-            <img src="{% static 'icons/door-open.svg' %}">
-        </a>
-    </div>
+
 </div>
 {% endblock %}
