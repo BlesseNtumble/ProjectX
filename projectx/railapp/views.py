@@ -24,15 +24,23 @@ def index(request):
 
 @login_required(login_url='/login')
 def chat(request):
-    context = {'title': 'Чат'}
+    reys = {'МСК-ЧИТА, 02.03, 7623415', 'ЧИТА-МСК, 06.03, 7623416'}
+    context = {'title': 'Чаты', 'reys': reys, }
     return render(request, template + '/chat.html', context=context)
+
+
+@login_required(login_url='/login')
+def chatdetail(request):
+    reys = 'МСК-ЧИТА, 02.03, 7623415'
+    context = {'title': 'Чат', 'reys': reys, }
+    return render(request, template + '/chat-detail.html', context=context)
 
 
 @login_required(login_url='/login')
 def profile(request):
     reys = request.user.number_route
     wagoon = 13
-    context = {'title': 'Профиль', 'reys': reys, 'wagoon': wagoon}
+    context = {'title': 'Профиль', 'reys': reys, 'wagoon': wagoon, }
     return render(request, template + '/profile.html', context=context)
 
 

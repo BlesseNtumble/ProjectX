@@ -1,1 +1,33 @@
 {% extends './template.html' %}
+
+{% load static %}
+{% block content %}
+
+<div class="main d-flex align-content-stretch
+ justify-content-space-between" style="flex-wrap: wrap; flex-direction: column;">
+    {% if reys %}
+    {% for el in reys %}
+    <div class="row">
+        <div class="col">
+            <a class="btn m-3" style="
+                border-radius: 20px;
+                background-color: #767575;
+                color: #ffffff;" href="{% url 'chat-detail' %}">
+                {{ el }}
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="row fs-4 mb-3 mt-auto">
+        <a class="btn" style="height: 80px; background-color: #D9D9D9;" href="{% url 'chat' %}">
+            <img src="{% static 'icons/new-chat.svg' %}">
+            <h3>
+                Создать чат
+            </h3>
+        </a>
+    </div>
+</div>
+{% else %}
+<p class="alert alert-warning">Упс! Ничего нет.</p>
+{% endif %}
+{% endblock %}
