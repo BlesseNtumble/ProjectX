@@ -12,14 +12,14 @@ from railapp.apps import template
 from django.http import HttpResponse
 
 from railapp.forms import RegisterForms
+from railapp.models import Settings
 
 
 @login_required(login_url='/login')
 def index(request):
     context = {'title': 'РЖД Контент'}
-    print(api.get_current_station(1))
-
-    return render(request, template + '/index.html', context=context)
+    return redirect('profile')
+    #return render(request, template + '/index.html', context=context)
 
 
 @login_required(login_url='/login')
@@ -30,7 +30,7 @@ def chat(request):
 
 @login_required(login_url='/login')
 def profile(request):
-    reys = 7978812
+    reys = request.user.number_route
     wagoon = 13
     context = {'title': 'Профиль', 'reys': reys, 'wagoon': wagoon}
     return render(request, template + '/profile.html', context=context)
@@ -38,7 +38,9 @@ def profile(request):
 
 @login_required(login_url='/login')
 def routes(request):
-    routes={1,2}
+    number = Settings.objects.filter(key='current_route').first()
+    routes = api.get_station_list(int(number.value), False)
+    print(api.get_current_station(int(number.value)))
     context = {'title': 'Маршрут следования', 'routes': routes}
     return render(request, template + '/routes.html', context=context)
 
