@@ -97,3 +97,9 @@ class AdminChat(admin.ModelAdmin):
     list_display = ['chat_id', 'user', 'text', 'date']
     list_display_links = list_display
     search_fields = list_display
+
+@admin.register(Settings)
+class AdminSettings(admin.ModelAdmin):
+    list_display = ['key', 'value', 'description']
+    list_display_links = list_display
+    search_fields = list_display

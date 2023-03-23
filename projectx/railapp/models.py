@@ -31,10 +31,12 @@ class Stations(models.Model):
 
 
 class StationList(models.Model):
+    routes_type = [('D', 'Прямой'), ('R', 'Обратный'),]
     list_id = models.IntegerField(null=False, blank=False)
     station = models.ForeignKey(Stations, on_delete=models.CASCADE, null=False, blank=False)
     start_date = models.DateTimeField(null=False, blank=False)
     end_date = models.DateTimeField(null=True, blank=True)
+    type = models.CharField(max_length=1,choices=routes_type, default='D')
 
     def __str__(self):
         return f'[{self.list_id}] {self.station}'
@@ -70,3 +72,15 @@ class Chat(models.Model):
     class Meta:
         verbose_name = 'Чат'
         verbose_name_plural = 'Чат'
+
+class Settings(models.Model):
+    key = models.CharField(max_length=256, null=False, blank=False)
+    value = models.CharField(max_length=256, null=False, blank=False)
+    description = models.CharField(max_length=1024, null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.key}'
+
+    class Meta:
+        verbose_name = 'Настройки'
+        verbose_name_plural = 'Настройки'
