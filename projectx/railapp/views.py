@@ -1,6 +1,7 @@
 from django.contrib.auth import logout, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
+from django.db.models import QuerySet
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -47,9 +48,12 @@ def profile(request):
 @login_required(login_url='/login')
 def routes(request):
     number = Settings.objects.filter(key='current_route').first()
-    routes = api.get_station_list(int(number.value), False)
-    print(api.get_current_station(int(number.value)))
-    context = {'title': 'Маршрут следования', 'routes': routes}
+    routes_d = api.get_station_list_direct(int(number.value))
+    routes_r = api.get_station_list_reverse(int(number.value))
+    routes = routes_d | routes_r
+
+    print(routes, )
+    context = {'title': 'Маршрут следования', 'routes': routes, 'routes_len': len(routes)}
     return render(request, template + '/routes.html', context=context)
 
 

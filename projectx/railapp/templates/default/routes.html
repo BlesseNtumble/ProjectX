@@ -3,8 +3,8 @@
 {% load static %}
 {% block content %}
     <div class="p-1">
-        {% if routes %}
 
+        {% if routes %}
             {% for el in routes %}
 
                 <div class="row">
@@ -12,7 +12,7 @@
                         flex-wrap: wrap;
                         justify-content: center;
                     ">
-                        {% if forloop.counter0 == 0 or forloop.counter == routes.count %}
+                        {% if forloop.counter0 == 0 or forloop.counter == routes_len %}
                             <div class="btn btn-danger btn-circle d-flex align-items-center justify-content-center"
                                  style="
                             width:40px;
@@ -35,7 +35,7 @@
                         {% endif %}
                     </div>
                     <div class="col">
-                        {% if forloop.counter0 == 0 or forloop.counter == routes.count %}
+                        {% if forloop.counter0 == 0 or forloop.counter == routes_len %}
                             <h2>
                                 Станция {{ el.station }}
                             </h2>
@@ -52,11 +52,11 @@
                 flex-wrap: wrap;
                 justify-content: center;
             ">
-                        <div class="{% if forloop.counter != routes.count %} vr {% else %} {% endif %}"
+                        <div class="{% if forloop.counter != routes_len %} vr {% else %} {% endif %}"
                              style="color:#C52E32;opacity:1;width: 5px;height: 100%;"></div>
                     </div>
                     <div class="col">
-                        {% if forloop.counter0 == 0 or forloop.counter == routes.count %}
+                        {% if forloop.counter0 == 0 or forloop.counter == routes_len %}
                             <h2>
                                 <p>
                                     {{ el.start_date }}
