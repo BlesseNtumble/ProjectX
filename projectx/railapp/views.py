@@ -10,10 +10,10 @@ from django.views.generic import CreateView
 
 from railapp import api
 from railapp.apps import template
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 from railapp.forms import RegisterForms
-from railapp.models import Settings
+from railapp.models import Settings, Chat, ChatList
 
 
 @login_required(login_url='/login')
@@ -40,6 +40,23 @@ def chatdetail(request):
     reys = 'МСК-ЧИТА, 02.03, 7623415'
     context = {'title': 'Чат', 'reys': reys, }
     return render(request, template + '/chat-detail.html', context=context)
+
+
+def checkview(request):
+    room = request.POST['room_name']
+    username = request['username']
+    if ChatList.objects.filter(name=room).exists():
+        return redirect('/'+chatdetail+'/?username='+username)
+    else:
+        new_room = ChatList.objects.create(name=room)
+        new_room.save()
+        return redirect('/'+chatdetail+'/?username='+username)
+
+
+def getMessages(request, room):
+    room_details = Chat.objects.get(name=room)
+    messages = Chat.objects.filter(room=room_details.id)
+    return JsonResponse({"messages": list(messages.values())})
 
 
 @login_required(login_url='/login')

@@ -19,15 +19,34 @@
     </div>
     {% endfor %}
     <div class="row fs-4 mb-3 mt-auto">
-        <form method="post">
-            {% csrf_token %}
-            <button class="btn btn-primary w-100 mt-2" style="height: 80px; background-color: #D9D9D9;" type="submit">
-                <img src="{% static 'icons/new-chat.svg' %}">
-                 <h3>
-                    Создать чат
-                </h3>
-            </button>
-        </form>
+        <button class="btn btn-primary w-100 mt-2" data-bs-toggle="modal" data-bs-target="#createChat"
+                data-bs-whatever="@mdo" style="height: 80px; background-color: #D9D9D9;">
+            <img src="{% static 'icons/new-chat.svg' %}">
+            <h3>
+                Создать чат
+            </h3>
+        </button>
+    </div>
+</div>
+<div class="modal fade" id="createChat" tabindex="-1" aria-labelledby="createChatLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createChatLabel">Создать чат</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input class="form-control" placeholder="Введите название" type="text"/>
+                    <button class="btn btn-primary w-100 mt-2" style="height: 80px; background-color: #D9D9D9;" type="submit">
+                            <h3>
+                                Создать
+                            </h3>
+                        </button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 {% else %}
