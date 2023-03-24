@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views.generic import CreateView
 
 from railapp import api
@@ -46,9 +47,20 @@ def chatdetail(request, slug):
 
     chatlist = ChatList.objects.filter(id=int(slug)).first()
     messages = Chat.objects.filter(chat_id=chatlist)
-    can_write = chatlist.closed_date > datetime.datetime.now()
+    can_write = True
 
     context = {'title': 'Чат', 'chatlist': chatlist, 'messages': messages, 'can_write': can_write }
+
+    if request.POST:
+        text = request.POST.get('text', None)
+        if text:
+            message = Chat()
+            message.chat_id = chatlist
+            message.user = request.user
+            message.text = text
+            message.date = timezone.now()
+            message.save()
+
     return render(request, template + '/chat-detail.html', context=context)
 
 
