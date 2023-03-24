@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth import logout, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
@@ -10,10 +12,10 @@ from django.views.generic import CreateView
 
 from railapp import api
 from railapp.apps import template
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 
 from railapp.forms import RegisterForms
-from railapp.models import Settings, Chat, ChatList
+from railapp.models import Settings, ChatList, Chat
 
 
 @login_required(login_url='/login')
@@ -25,38 +27,29 @@ def index(request):
 
 @login_required(login_url='/login')
 def chat(request):
-    reys = {'МСК-ЧИТА, 02.03, 7623415', 'ЧИТА-МСК, 06.03, 7623416'}
     chats = api.get_chat_list()
     context = {'title': 'Чаты', 'chats': chats, }
 
     if request.POST:
-        pass
+        name = request.POST.get('chat_name', api.get_setting('current_route'))
+
+        chat = ChatList()
+        chat.chat_name = name
+        chat.created_date = datetime.datetime.now()
+        chat.save()
 
     return render(request, template + '/chat.html', context=context)
 
 
 @login_required(login_url='/login')
-def chatdetail(request):
-    reys = 'МСК-ЧИТА, 02.03, 7623415'
-    context = {'title': 'Чат', 'reys': reys, }
+def chatdetail(request, slug):
+
+    chatlist = ChatList.objects.filter(id=int(slug)).first()
+    messages = Chat.objects.filter(chat_id=chatlist)
+    can_write = chatlist.closed_date > datetime.datetime.now()
+
+    context = {'title': 'Чат', 'chatlist': chatlist, 'messages': messages, 'can_write': can_write }
     return render(request, template + '/chat-detail.html', context=context)
-
-
-def checkview(request):
-    room = request.POST['room_name']
-    username = request['username']
-    if ChatList.objects.filter(name=room).exists():
-        return redirect('/'+chatdetail+'/?username='+username)
-    else:
-        new_room = ChatList.objects.create(name=room)
-        new_room.save()
-        return redirect('/'+chatdetail+'/?username='+username)
-
-
-def getMessages(request, room):
-    room_details = Chat.objects.get(name=room)
-    messages = Chat.objects.filter(room=room_details.id)
-    return JsonResponse({"messages": list(messages.values())})
 
 
 @login_required(login_url='/login')
