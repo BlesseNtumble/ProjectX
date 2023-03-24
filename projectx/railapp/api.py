@@ -2,7 +2,7 @@ import datetime
 
 from django.utils import timezone
 
-from railapp.models import Stations, StationList, Settings
+from railapp.models import Stations, StationList, Settings, ChatList
 
 
 def get_setting(setting) -> str:
@@ -25,3 +25,7 @@ def get_station_list_direct(id):
 def get_station_list_reverse(id):
     station = StationList.objects.filter(list_id=id, type='R').order_by('start_date')
     return station
+
+def get_chat_list():
+    chats = ChatList.objects.all()
+    return chats

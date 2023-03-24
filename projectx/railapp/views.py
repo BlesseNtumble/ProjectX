@@ -26,7 +26,12 @@ def index(request):
 @login_required(login_url='/login')
 def chat(request):
     reys = {'МСК-ЧИТА, 02.03, 7623415', 'ЧИТА-МСК, 06.03, 7623416'}
-    context = {'title': 'Чаты', 'reys': reys, }
+    chats = api.get_chat_list()
+    context = {'title': 'Чаты', 'chats': chats, }
+
+    if request.POST:
+        pass
+
     return render(request, template + '/chat.html', context=context)
 
 
@@ -58,7 +63,6 @@ def routes(request):
 
     routes = routes_d | routes_r
 
-    print(next_station)
     context = {'title': 'Маршрут следования', 'routes': routes, 'routes_len': len(routes), 'next_station': next_station}
     return render(request, template + '/routes.html', context=context)
 

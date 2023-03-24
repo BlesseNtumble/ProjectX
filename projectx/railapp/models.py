@@ -14,10 +14,12 @@ class Roles(models.Model):
         verbose_name = 'Роль'
         verbose_name_plural = 'Роли'
 
+
 class CustomUser(AbstractUser):
     role = models.ForeignKey(Roles, on_delete=models.SET_NULL, null=True, blank=False)
     number_route = models.CharField(max_length=6, null=True, blank=False)
     number_wagon = models.IntegerField(null=True, blank=False)
+
 
 class Stations(models.Model):
     name = models.CharField(max_length=256, null=False, blank=False)
@@ -55,10 +57,10 @@ class ChatList(models.Model):
     def __str__(self):
         return f'{self.chat_name}'
 
-
     class Meta:
         verbose_name = 'Список чатов'
         verbose_name_plural = 'Список чатов'
+
 
 class Chat(models.Model):
     chat_id = models.ForeignKey(ChatList, on_delete=models.CASCADE, null=False, blank=False)
@@ -72,6 +74,7 @@ class Chat(models.Model):
     class Meta:
         verbose_name = 'Чат'
         verbose_name_plural = 'Чат'
+
 
 class Settings(models.Model):
     key = models.CharField(max_length=256, null=False, blank=False)
