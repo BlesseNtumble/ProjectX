@@ -71,8 +71,9 @@ def profile(request):
 
     number = api.get_setting('current_routelist')
     current_station = api.get_current_station(int(number))
+    next_station = api.get_next_station(int(number))
 
-    context = {'title': 'Профиль', 'reys': reys, 'wagoon': wagoon, 'current_station': current_station }
+    context = {'title': 'Профиль', 'reys': reys, 'wagoon': wagoon, 'current_station': current_station, 'next_station': next_station }
     return render(request, template + '/profile.html', context=context)
 
 

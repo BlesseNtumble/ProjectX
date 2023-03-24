@@ -25,7 +25,7 @@
                 background-color: #767575;
                 color: #FFFFFF;
                 ">
-                {% if current_station.station %} {{ current_station.station }} {% else %} В пути {% endif %}
+                {% if current_station.station %} {{ current_station.station }} {% else %} В пути к станции {{ next_station.station }} {% endif %}
             </h2>
         </div>
 
