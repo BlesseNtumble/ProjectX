@@ -39,7 +39,7 @@ def chatdetail(request):
 
 @login_required(login_url='/login')
 def profile(request):
-    reys = request.user.number_route
+    reys = api.get_setting('current_route')
     wagoon = 'Заказчик сказал что поезд без вагонов'
 
     number = api.get_setting('current_routelist')
