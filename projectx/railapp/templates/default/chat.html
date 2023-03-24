@@ -38,7 +38,7 @@
             <div class="modal-body">
                 <form action="" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <input class="form-control" placeholder="Введите название" type="text"/>
+                    <input class="form-control" name="chat_name" placeholder="Введите название" type="text"/>
                     <button class="btn btn-primary w-100 mt-2" style="height: 80px; background-color: #D9D9D9;" type="submit">
                             <h3>
                                 Создать

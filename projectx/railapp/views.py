@@ -16,7 +16,7 @@ from railapp.apps import template
 from django.http import HttpResponse
 
 from railapp.forms import RegisterForms
-from railapp.models import Settings, ChatList, Chat
+from railapp.models import Settings, ChatList, Chat, Roles
 
 
 @login_required(login_url='/login')
@@ -31,12 +31,19 @@ def chat(request):
     chats = api.get_chat_list()
     context = {'title': 'Чаты', 'chats': chats, }
 
+    role = Roles.objects.filter(name='Проводник').first()
+    current_chatid = api.get_setting('current_chatid')
+
+    if request.user.role == role:
+        return redirect('chat-detail', slug=current_chatid)
+
     if request.POST:
         name = request.POST.get('chat_name', api.get_setting('current_route'))
 
         chat = ChatList()
         chat.chat_name = name
         chat.created_date = datetime.datetime.now()
+        chat.is_readonly = False
         chat.save()
 
     return render(request, template + '/chat.html', context=context)
