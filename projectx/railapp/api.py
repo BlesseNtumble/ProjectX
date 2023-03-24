@@ -6,7 +6,10 @@ from railapp.models import Stations, StationList, Settings, ChatList
 
 
 def get_setting(setting) -> str:
-    return Settings.objects.filter(key=setting).first().value
+    setting = Settings.objects.filter(key=setting).first()
+    if setting is not None:
+        return Settings.objects.filter(key=setting).first().value
+    return None
 
 def get_current_station(id) -> str:
     now = datetime.datetime.now().time()
