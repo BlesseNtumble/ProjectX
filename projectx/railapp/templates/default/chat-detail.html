@@ -9,7 +9,8 @@
         <p class="mb-0 fw-bold">Чат {{ chatlist.chat_name }}</p>
         <i class="fas fa-times"></i>
     </div>
-    <div class="card-body">
+    <div class="card-body" style="height:500px;
+  overflow-y: scroll;">
 
         {% for ms in messages %}
             {% if ms.user != request.user %}
@@ -34,8 +35,8 @@
                     </div>
                 </div>
             {% endif %}
-        {% endfor %}
-        <div class="row m-2" style="background-color: #767575;">
+        {% endfor %}</div>
+        <div class="row m-2 fixed-bottom" style="background-color: #767575;">
             <form method="post">
                 <div class="form-outline d-flex m-2">
                     {% csrf_token %}
@@ -52,6 +53,6 @@
                 </div>
             </form>
         </div>
-    </div>
+
 
 {% endblock %}

@@ -11,42 +11,44 @@
 
 </head>
 <body class="text-center">
-<main class="form-signin">
-
-<div class="container" style="width:50%">
-    <div class="color: #C52E32">
-        Авторизация
+<main class="form-signin mt-5">
+    <div class="container" style="width:50%; max-width:400px">
+        <h4 style="color: #C52E32">
+            Авторизация
+        </h4>
+        <form method="post">
+            {{form.non_field_errors}}
+            {% csrf_token %} {% for f in form %} {{f.label}}: {{ f }}
+            {{ f.errors }}
+            {% endfor %}
+            <br>
+            <div class="row">
+                {% if title == 'Авторизация' %}
+                <div class="col">
+                    <button class="btn" type="submit" style="color: #C52E32;    border-color: #C52E32;">
+                        Войти
+                    </button>
+                </div>
+                <div class="col">
+                    <a class="btn" style="color: #C52E32;    border-color: #C52E32;" href="/register">
+                        Регистрация
+                    </a>
+                </div>
+                {% else %}
+                <div class="col">
+                    <button class="btn" type="submit" style="color: #C52E32;    border-color: #C52E32;">
+                        Зарегистрироваться
+                    </button>
+                </div>
+                <div class="col">
+                    <a class="btn" style="color: #C52E32;    border-color: #C52E32;" href="/login">
+                        Авторизация
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </form>
     </div>
-    <form method="post">
-        {{form.non_field_errors}}
-        {% csrf_token %} {% for f in form %} {{f.label}}: {{ f }}
-        {{ f.errors }}
-        {% endfor %}
-        <div>
-
-            {% if title == 'Авторизация' %}
-            <button class="btn" type="submit">
-                Войти
-            </button>
-            <button class="btn">
-                <a href="/register">
-                    Регистрация
-                </a>
-            </button>
-            {% else %}
-            <button class="btn" type="submit">
-                Зарегистрироваться
-            </button>
-            <button class="btn">
-                <a href="/login">
-                    Авторизация
-                </a>
-            </button>
-            {% endif %}
-        </div>
-
-    </form>
-</div>
-    </main>
+</main>
 </body>
 </html>
