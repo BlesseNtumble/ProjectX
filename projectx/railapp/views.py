@@ -41,7 +41,11 @@ def chatdetail(request):
 def profile(request):
     reys = request.user.number_route
     wagoon = 'Заказчик сказал что поезд без вагонов'
-    context = {'title': 'Профиль', 'reys': reys, 'wagoon': wagoon, }
+
+    number = api.get_setting('current_routelist')
+    current_station = api.get_current_station(int(number))
+
+    context = {'title': 'Профиль', 'reys': reys, 'wagoon': wagoon, 'current_station': current_station }
     return render(request, template + '/profile.html', context=context)
 
 

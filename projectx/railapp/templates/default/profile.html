@@ -18,14 +18,14 @@
             </h2>
         </div>
         <h4>
-            Номер вагона
+            Текущая станция
         </h4>
         <div>
             <h2 style="
                 background-color: #767575;
                 color: #FFFFFF;
                 ">
-                {{ wagoon }}
+                {% if current_station.station %} {{ current_station.station }} {% else %} В пути {% endif %}
             </h2>
         </div>
 

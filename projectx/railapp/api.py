@@ -8,6 +8,11 @@ from railapp.models import Stations, StationList, Settings
 def get_setting(setting) -> str:
     return Settings.objects.filter(key=setting).first().value
 
+def get_current_station(id) -> str:
+    now = datetime.datetime.now().time()
+    station = StationList.objects.filter(list_id=id, start_date__time__lte=now, end_date__time__gte=now).first()
+    return station
+
 def get_next_station(id) -> str:
     now = datetime.datetime.now().time()
     station = StationList.objects.filter(list_id=id, start_date__time__gte=now).first()
