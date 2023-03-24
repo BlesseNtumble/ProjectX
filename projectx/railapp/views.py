@@ -40,20 +40,22 @@ def chatdetail(request):
 @login_required(login_url='/login')
 def profile(request):
     reys = request.user.number_route
-    wagoon = 13
+    wagoon = 'Заказчик сказал что поезд без вагонов'
     context = {'title': 'Профиль', 'reys': reys, 'wagoon': wagoon, }
     return render(request, template + '/profile.html', context=context)
 
 
 @login_required(login_url='/login')
 def routes(request):
-    number = Settings.objects.filter(key='current_route').first()
-    routes_d = api.get_station_list_direct(int(number.value))
-    routes_r = api.get_station_list_reverse(int(number.value))
+    number = api.get_setting('current_routelist')
+    routes_d = api.get_station_list_direct(int(number))
+    routes_r = api.get_station_list_reverse(int(number))
+    next_station = api.get_next_station(int(number))
+
     routes = routes_d | routes_r
 
-    print(routes, )
-    context = {'title': 'Маршрут следования', 'routes': routes, 'routes_len': len(routes)}
+    print(next_station)
+    context = {'title': 'Маршрут следования', 'routes': routes, 'routes_len': len(routes), 'next_station': next_station}
     return render(request, template + '/routes.html', context=context)
 
 

@@ -12,7 +12,8 @@
                         flex-wrap: wrap;
                         justify-content: center;
                     ">
-                        {% if forloop.counter0 == 0 or forloop.counter == routes_len %}
+
+                        {% if el.id == next_station.id %}
                             <div class="btn btn-danger btn-circle d-flex align-items-center justify-content-center"
                                  style="
                             width:40px;
@@ -35,7 +36,7 @@
                         {% endif %}
                     </div>
                     <div class="col">
-                        {% if forloop.counter0 == 0 or forloop.counter == routes_len %}
+                        {% if el.id == next_station.id %}
                             <h2>
                                 Станция {{ el.station }}
                             </h2>
@@ -56,7 +57,7 @@
                              style="color:#C52E32;opacity:1;width: 5px;height: 100%;"></div>
                     </div>
                     <div class="col">
-                        {% if forloop.counter0 == 0 or forloop.counter == routes_len %}
+                        {% if el.id == next_station.id %}
                             <h2>
                                 <p>
                                     {{ el.start_date }}
