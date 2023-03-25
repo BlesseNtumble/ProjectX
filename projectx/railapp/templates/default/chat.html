@@ -20,7 +20,7 @@
     {% endfor %}
     <div class="row fs-4 mb-3 mt-auto fixed-bottom">
         <button class="btn btn-primary w-100 mt-2" data-bs-toggle="modal" data-bs-target="#createChat"
-                data-bs-whatever="@mdo" style="height: 80px; background-color: #D9D9D9;">
+                data-bs-whatever="@mdo" style="height: 80px; background-color: #D9D9D9; border-color:#C52E32;">
             <img src="{% static 'icons/new-chat.svg' %}">
             <h3>
                 Создать чат
@@ -39,7 +39,7 @@
                 <form action="" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <input class="form-control" name="chat_name" placeholder="Введите название" type="text"/>
-                    <button class="btn btn-primary w-100 mt-2" style="height: 80px; background-color: #D9D9D9;" type="submit">
+                    <button class="btn btn-primary w-100 mt-2" style="height: 80px; background-color: #D9D9D9; border-color:#C52E32;" type="submit">
                             <h3>
                                 Создать
                             </h3>

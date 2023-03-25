@@ -10,7 +10,7 @@
         <i class="fas fa-times"></i>
     </div>
 
-    <div id="scroll-div"  class="card-body" style="max-height: 700px; overflow-y: scroll;">
+    <div id="scroll-div"  class="card-body" style="max-height: 450px; overflow-y: scroll;">
 
         {% for ms in messages %}
             {% if ms.user != request.user %}
@@ -18,7 +18,7 @@
 
                     <div class="p-3 ms-3" style="border-radius: 15px; background-color: #c4c4c4;">
                         <p>
-                            {{ ms.user.first_name }}
+                            {{ ms.user.first_name }} {{ms.user.last_name}} , {{ms.user.role}}
                         </p>
                         <p> {{ ms.date }}</p>
                         <h5 class="small mb-0"> {{ ms.text }}</h5>
@@ -42,12 +42,11 @@
             <div class="form-outline d-flex m-2">
                 {% csrf_token %}
                 <textarea class="form-control m-2" id="textAreaExample" rows="2" name="text"></textarea>
-                <button class="btn btn-primary" type="submit">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                <button class="btn btn-primary" type="submit" style="background:#ffffff;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#C52E32"
                          class="bi bi-send" viewBox="0 0 16 16">
                         <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"></path>
                     </svg>
-                    Отправить
                 </button>
 
 
