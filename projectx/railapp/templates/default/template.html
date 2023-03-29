@@ -7,6 +7,8 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/uhpv-full.min.js' %}"></script>
     <script type="text/javascript" defer src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery-3.6.4.min.js' %}"></script>
 </head>
@@ -24,7 +26,12 @@
             {{title}}
         </h2>
     </div>
-    <div class="col">
+    <div class="col-3">
+        <p id="specialButton" style="cursor:pointer;">
+            ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ
+        </p>
+    </div>
+    <div class="col d-flex" style="justify-content: flex-end;">
         <img src="{% static 'icons/logo.svg' %}">
     </div>
 </nav>

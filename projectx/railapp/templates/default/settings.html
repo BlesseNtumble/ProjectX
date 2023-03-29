@@ -5,13 +5,19 @@
 {% block content %}
 <div class="container p-2 mt-5">
     <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" style="width:10em; height:5em;
-        border-color:#C52E32;">
-        <label class="form-check-label" for="flexSwitchCheckDefault" style="font-size:3em;">Режим для
-            слабовидящих</label>
+        <div class="row">
+            <div class="col-2">
+                <input class="form-check-input" type="checkbox" id="specialButton1" style="width:10em; height:5em;
+                border-color:#C52E32; cursor:pointer;">
+            </div>
+            <div class="col-6">
+                <label class="form-check-label" for="specialButton1" style="font-size:3em;">Режим для
+                    слабовидящих</label>
+            </div>
+        </div>
     </div>
     <a class="btn fixed-bottom mb-5" href="{% url 'logout' %}">
-                <img src="{% static 'icons/door-open.svg' %}">
-            </a>
+        <img src="{% static 'icons/door-open.svg' %}">
+    </a>
 </div>
 {% endblock %}
