@@ -18,7 +18,7 @@
         </h4>
         <form method="post">
             {{form.non_field_errors}}
-            {% csrf_token %} {% for f in form %} {{f.label}}: {{ f }}
+            {% csrf_token %} {% for f in form %} {{ f }}
             {{ f.errors }}
             {% endfor %}
             <br>

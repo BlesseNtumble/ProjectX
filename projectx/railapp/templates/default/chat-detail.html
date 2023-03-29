@@ -2,60 +2,93 @@
 
 {% load static %}
 {% block content %}
-    <div
-            class="card-header d-flex justify-content-between align-items-center p-3  border-bottom-0"
-            style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
-        <i class="fas fa-angle-left"></i>
-        <p class="mb-0 fw-bold">Чат {{ chatlist.chat_name }}</p>
-        <i class="fas fa-times"></i>
-    </div>
+<div
+        class="card-header d-flex justify-content-between align-items-center p-3  border-bottom-0"
+        style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+    <i class="fas fa-angle-left"></i>
+    <p class="mb-0 fw-bold">Чат {{ chatlist.chat_name }}</p>
+    <i class="fas fa-times"></i>
+</div>
 
-    <div id="scroll-div"  class="card-body" style="max-height: 450px; overflow-y: scroll;">
+<div id="scroll-div" class="card-body" style="max-height: 450px; overflow-y: scroll;">
 
-        {% for ms in messages %}
-            {% if ms.user != request.user %}
-                <div class="d-flex flex-row justify-content-start mb-4">
+    {% for ms in messages %}
+    {% if ms.user != request.user %}
+    <div class="d-flex flex-row justify-content-start mb-4">
+        {% if ms.user.role.name == 'Начальник поезда' %}
+        <div class="p-3 ms-3" style="border-radius: 15px; background-color: #C52E32;">
+            <p style="color:#ffffff">
+                {{ ms.user.first_name }} {{ms.user.last_name}}, {{ms.user.role}}
+            </p>
 
-                    <div class="p-3 ms-3" style="border-radius: 15px; background-color: #c4c4c4;">
-                        <p>
-                            {{ ms.user.first_name }} {{ms.user.last_name}} , {{ms.user.role}}
-                        </p>
-                        <p> {{ ms.date }}</p>
-                        <h5 class="small mb-0"> {{ ms.text }}</h5>
-                    </div>
-                </div>
-            {% else %}
-                <div class="d-flex flex-row justify-content-end mb-4">
-                    <div class="p-3 me-3 border" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
-                        <p>
-                            {{ ms.user.first_name }} (Вы)
-                        </p>
-                        <p> {{ ms.date }}</p>
-                        <h5 class="small mb-0"> {{ ms.text }}</h5>
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
+            <h5 class="mb-0" style="color:#ffffff"> {{ ms.text }}</h5>
+            <p style="color:#ffffff;justify-content: flex-end;
+                display: flex;
+                font-size: 80%;
+                margin-top: 5%;">  {{ ms.date }}</p>
         </div>
-    <div class="row m-2 fixed-bottom" style="background-color: #767575;">
-        <form method="post">
-            <div class="form-outline d-flex m-2">
-                {% csrf_token %}
-                <textarea class="form-control m-2" id="textAreaExample" rows="2" name="text"></textarea>
-                <button class="btn btn-primary" type="submit" style="background:#ffffff;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#C52E32"
-                         class="bi bi-send" viewBox="0 0 16 16">
-                        <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"></path>
-                    </svg>
-                </button>
+        {% else %}
+        <div class="p-3 ms-3" style="border-radius: 15px; background-color: #767575;">
+            <p style="color:#ffffff">
+                {{ ms.user.first_name }} {{ms.user.last_name}}, {{ms.user.role}}
+            </p>
 
-
-            </div>
-        </form>
+            <h5 class="mb-0" style="color:#ffffff"> {{ ms.text }}</h5>
+            <p style="color:#ffffff; justify-content: flex-end;
+                display: flex;
+                font-size: 80%;
+                margin-top: 5%;">  {{ ms.date }}</p>
+        </div>
+        {% endif %}
     </div>
+    {% else %}
+    <div class="d-flex flex-row justify-content-end mb-4">
+        <div class="p-3 me-3 border" style="border-radius: 15px; background-color:#c4c4c4;">
+            <p>
+                {{ ms.user.first_name }} (Вы)
+            </p>
+            <h5 class="mb-0"> {{ ms.text }}</h5>
+            <p style="justify-content: flex-end;
+                display: flex;
+                font-size: 80%;
+                margin-top: 5%;"> {{ ms.date }}
+            </p>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+<div class="row m-2 fixed-bottom" style="background-color: #767575;">
+    <form method="post" class="cont">
+        <div class="form-outline d-flex m-2">
+            {% csrf_token %}
+            <textarea class="form-control m-2" id="textAreaExample" rows="2" name="text"></textarea>
+            <button class="btn btn-primary" type="submit" style="background:#ffffff;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#C52E32"
+                     class="bi bi-send" viewBox="0 0 16 16">
+                    <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"></path>
+                </svg>
+            </button>
 
-    <script>
 
+        </div>
+    </form>
+</div>
+
+<script>
+    $(function(){
+  $('.cont').keypress(function(e){
+    if(e.which == 13) {
+        alert(' lf ');
+        form.submit();
+    }
+  })
+})
+$(document).on("keypress", ".input-group:has(input:input, span.input-group-btn:has(div.btn)) input:input", function(e){
+    if (e.which == 13){
+        $(this).closest(".input-group").find("div.btn").click();
+    }
+});
         $(document).ready(function () {
             setInterval(function () {
                 $.ajax({
@@ -76,8 +109,9 @@
             objDiv.scrollTop = objDiv.scrollHeight;
         });
 
-    </script>
-      <script>
 
-        </script>
+</script>
+<script>
+
+</script>
 {% endblock %}

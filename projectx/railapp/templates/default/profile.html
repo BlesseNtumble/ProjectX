@@ -3,31 +3,40 @@
 {% load static %}
 {% block content %}
 <div style="height:100%;">
-        <h1>
-            Данные о пользователе
-        </h1>
-        <h4>
-            Номер рейса
-        </h4>
-        <div>
-            <h2 style="
-                background-color: #767575;
-                color: #FFFFFF;
-                ">
+    <h1>
+        Данные о пользователе
+    </h1>
+    <h2>
+        Номер рейса:
+    </h2>
+    <div>
+        <h2>
+            <ul>
+                <li>
+            <u>
                 {{ reys }}
-            </h2>
-        </div>
-        <h4>
-            Текущая станция
-        </h4>
-        <div>
-            <h2 style="
-                background-color: #767575;
-                color: #FFFFFF;
-                ">
+            </u>
+                </li>
+            </ul>
+        </h2>
+    </div>
+    <h2>
+
+        Текущая станция:
+    </h2>
+    <div>
+        <h2>
+            <ul>
+                <li>
+                    <u>
+                        <a href="{% url 'routes' %}" style="color:#212529;">
                 {% if current_station.station %} {{ current_station.station }} {% else %} В пути к станции {{ next_station.station }} {% endif %}
-            </h2>
-        </div>
+                        </a>
+                    </u>
+                </li>
+            </ul>
+        </h2>
+    </div>
 
 </div>
 {% endblock %}
