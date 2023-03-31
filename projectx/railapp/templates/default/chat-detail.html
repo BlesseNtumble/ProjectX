@@ -3,14 +3,14 @@
 {% load static %}
 {% block content %}
 <div
-        class="card-header d-flex justify-content-between align-items-center p-3  border-bottom-0"
+        class="d-flex justify-content-between align-items-center p-3  border-bottom-0"
         style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
     <i class="fas fa-angle-left"></i>
     <p class="mb-0 fw-bold">Чат {{ chatlist.chat_name }}</p>
     <i class="fas fa-times"></i>
 </div>
 
-<div id="scroll-div" class="card-body" style="max-height: 450px; overflow-y: scroll;">
+<div id="scroll-div" class="" style="max-height: 450px; overflow-y: scroll;">
 
     {% for ms in messages %}
     {% if ms.user != request.user %}

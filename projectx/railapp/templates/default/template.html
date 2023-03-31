@@ -14,22 +14,22 @@
 </head>
 <body>
 <nav class="navbar navbar-dark row w-100" style="background: #C7C5C5; margin-left:0px">
-    <div class="col-1">
+    <div class="col-2">
         <button class="navbar-toggler ml-2" type="button" data-bs-toggle="offcanvas" href="#offcanvasExample"
                 role="button" aria-controls="offcanvasExample"
-                style="color: #C52E32;    border-color: #C52E32;    line-height: 2;">
-            <img src="{% static 'icons/list.svg' %}">
+                style="color: #C52E32;    border-color: #C52E32;    min-height:100%; min-width:100%;">
+            <h3>Меню</h3>
         </button>
     </div>
-    <div class="col-6">
+    <div class="col-5">
         <h2 style="color: #C52E32;">
             {{title}}
         </h2>
     </div>
     <div class="col-3">
-        <p id="specialButton" style="cursor:pointer;">
+        <h3 id="specialButton" style="cursor:pointer;">
             ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ
-        </p>
+        </h3>
     </div>
     <div class="col d-flex" style="justify-content: flex-end;">
         <img src="{% static 'icons/logo.svg' %}">
@@ -41,30 +41,30 @@
 
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasExampleLabel" style="color: #C52E32;">Меню</h5>
+        <h3 class="offcanvas-title" id="offcanvasExampleLabel" style="color: #C52E32;">Меню</h3>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
     </div>
     <div class="offcanvas-body d-flex">
         <div class="row align-items-flex-end justify-content-center">
-            <a href="{% url 'profile' %}" class="btn">
-                <h4 style="color: #C52E32;">
+            <a href="{% url 'profile' %}" class="btn" style="margin:auto;">
+                <h3 style="color: #C52E32;">
                     Текущий рейс
-                </h4>
+                </h3>
             </a>
-            <a href="{% url 'chat' %}" class="btn">
-                <h4 style="color: #C52E32;">
+            <a href="{% url 'chat' %}" class="btn" style="margin:auto;">
+                <h3 style="color: #C52E32;">
                     Чат
-                </h4>
+                </h3>
             </a>
-            <a href="{% url 'routes' %}" class="btn">
-                <h4 style="color: #C52E32;">
+            <a href="{% url 'routes' %}" class="btn" style="margin:auto;">
+                <h3 style="color: #C52E32;">
                     Маршрут следования
-                </h4>
+                </h3>
             </a>
-            <a href="{% url 'settings' %}" class="btn">
-                <h4 style="color: #C52E32;">
+            <a href="{% url 'settings' %}" class="btn" style="margin:auto;">
+                <h3 style="color: #C52E32;">
                     Настройки
-                </h4>
+                </h3>
             </a>
             {% if ms.user.role.name == 'Начальник поезда' %}
                 <a class="btn btn-danger btn-circle d-flex justify-content-center align-items-center" style="width: 80px;
