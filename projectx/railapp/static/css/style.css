@@ -24,14 +24,25 @@ btn-circle {
     height: 100px;
 }
 
+.f-size {
+    font-size: 25pt;
+}
+
 @media screen and (max-device-width: 480px) {
     .min-h {
         height: 150px;
+    }
+
+    .f-size {
+        font-size: 50pt;
     }
 }
 
 @media screen and (max-device-width: 280px) {
     .min-h {
         height: 200px;
+    }
+    .f-size {
+        font-size: 60pt;
     }
 }
