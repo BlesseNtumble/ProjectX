@@ -2,17 +2,35 @@ from django.contrib import messages
 from django.contrib import admin
 
 # Register your models here.
+from django.contrib.auth.admin import UserAdmin
+from django.utils.translation import gettext_lazy as _
+
 from railapp.models import *
 
 
 @admin.register(CustomUser)
-class AdminCustomUser(admin.ModelAdmin):
-    list_display = ['username', 'get_role', 'is_staff', 'is_active', 'get_number_route', 'get_number_wagon']
-    list_display_links = list_display
-    search_fields = list_display
+class AdminCustomUser(UserAdmin):
 
-    def get_form(self, request, obj=None, change=False, **kwargs):
-        form = super().get_form(request, obj, change, **kwargs)
+    fieldsets = (
+        (None, {"fields": ("username", "password")}),
+        (_("Personal info"), {"fields": ("first_name", "last_name", "email", "role", "number_route", "number_wagon")}),
+        (
+            _("Permissions"),
+            {
+                "fields": (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                ),
+            },
+        ),
+        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
+    )
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
         form.base_fields['role'].label = 'Роль'
         form.base_fields['number_route'].label = 'Номер рейса'
         form.base_fields['number_wagon'].label = 'Номер вагона'
