@@ -46,26 +46,26 @@
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
     </div>
     <div class="offcanvas-body d-flex">
-        <div class="row align-items-flex-end justify-content-center">
-            <a href="{% url 'profile' %}" class="btn">
-                <h4 style="color: #C52E32;">
+        <div class="row align-items-flex-end align-items-center ">
+            <a href="{% url 'profile' %}" class="btn" style="height: 100px">
+                <p class="f-size" style="color: #C52E32;">
                     Текущий рейс
-                </h4>
+                </p>
             </a>
             <a href="{% url 'chat' %}" class="btn">
-                <h4 style="color: #C52E32;">
+                <p class="f-size" style="color: #C52E32;">
                     Чат
-                </h4>
+                </p>
             </a>
             <a href="{% url 'routes' %}" class="btn">
-                <h4 style="color: #C52E32;">
+                <p class="f-size" style="color: #C52E32;">
                     Маршрут следования
-                </h4>
+                </p>
             </a>
             <a href="{% url 'settings' %}" class="btn">
-                <h4 style="color: #C52E32;">
+                <p class="f-size" style="color: #C52E32;">
                     Настройки
-                </h4>
+                </p>
             </a>
             {% if ms.user.role.name == 'Начальник поезда' %}
                 <a class="btn btn-danger btn-circle d-flex justify-content-center align-items-center" style="width: 80px;
