@@ -36,7 +36,7 @@
     </div>
 </nav>
 
-<div class="container-lg overflow-hidden">
+<div class="container-lg overflow-hidden pb-5">
     {% block content %}{% endblock %}
 </div>
 
@@ -47,26 +47,22 @@
     </div>
     <div class="offcanvas-body d-flex">
         <div class="row align-items-flex-end justify-content-center">
-            <a href="{% url 'profile' %}" class="btn">
+            <a href="{% url 'profile' %}" class="btn" style="margin:auto;">
                 <h4 style="color: #C52E32;">
                     Текущий рейс
                 </h4>
             </a>
-            <a href="{% url 'chat' %}" class="btn">
+            <a href="{% url 'chat' %}" class="btn" style="margin:auto;">
                 <h4 style="color: #C52E32;">
                     Чат
                 </h4>
             </a>
-            <a href="{% url 'routes' %}" class="btn">
+            <a href="{% url 'routes' %}" class="btn" style="margin:auto;">
                 <h4 style="color: #C52E32;">
                     Маршрут следования
                 </h4>
             </a>
-            <a href="{% url 'settings' %}" class="btn">
-                <h4 style="color: #C52E32;">
-                    Настройки
-                </h4>
-            </a>
+
             {% if ms.user.role.name == 'Начальник поезда' %}
                 <a class="btn btn-danger btn-circle d-flex justify-content-center align-items-center" style="width: 80px;
                             height: 80px;

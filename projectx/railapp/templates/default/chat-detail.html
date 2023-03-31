@@ -16,7 +16,7 @@
     {% if ms.user != request.user %}
     <div class="d-flex flex-row justify-content-start mb-4">
         {% if ms.user.role.name == 'Начальник поезда' %}
-        <div class="p-3 ms-3" style="border-radius: 15px; background-color: #C52E32;">
+        <div class="p-3 ms-3 border" style="border-radius: 15px; background-color: #C52E32;">
             <p style="color:#ffffff">
                 {{ ms.user.first_name }} {{ms.user.last_name}}, {{ms.user.role}}
             </p>
@@ -28,7 +28,7 @@
                 margin-top: 5%;">  {{ ms.date }}</p>
         </div>
         {% else %}
-        <div class="p-3 ms-3" style="border-radius: 15px; background-color: #767575;">
+        <div class="p-3 ms-3 border" style="border-radius: 15px; background-color: #767575;">
             <p style="color:#ffffff">
                 {{ ms.user.first_name }} {{ms.user.last_name}}, {{ms.user.role}}
             </p>
