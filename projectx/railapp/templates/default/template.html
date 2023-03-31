@@ -13,29 +13,32 @@
     <script type="text/javascript" src="{% static 'js/jquery-3.6.4.min.js' %}"></script>
 </head>
 <body>
-<nav class="navbar navbar-dark row w-100" style="background: #C7C5C5; margin-left:0px">
-    <div class="col-1">
-        <button class="navbar-toggler ml-2" type="button" data-bs-toggle="offcanvas" href="#offcanvasExample"
-                role="button" aria-controls="offcanvasExample"
-                style="color: #C52E32;    border-color: #C52E32;    line-height: 2;">
-            <img src="{% static 'icons/list.svg' %}">
-        </button>
-    </div>
-    <div class="col-6">
-        <h2 style="color: #C52E32;">
-            {{title}}
-        </h2>
-    </div>
-    <div class="col-3">
-        <p id="specialButton" style="cursor:pointer;">
-            ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ
-        </p>
-    </div>
-    <div class="col d-flex" style="justify-content: flex-end;">
-        <img src="{% static 'icons/logo.svg' %}">
+<nav class="w-100 min-h" style="background: #C7C5C5;">
+    <div class="container-lg d-flex h-100 align-items-center text-center">
+        <div class="ms-5 " style="">
+            <button class="navbar-toggler ml-2" type="button" data-bs-toggle="offcanvas" href="#offcanvasExample"
+                    role="button" aria-controls="offcanvasExample"
+                    style="color: #C52E32;    border-color: #C52E32;    line-height: 2;">
+                <img src="{% static 'icons/list.svg' %}" width="32" height="32">
+            </button>
+        </div>
+        <div class="w-100 " style="">
+            <h2 style="color: #C52E32;">
+                {{ title }}
+            </h2>
+        </div>
+        <div class="w-100" style="">
+            <p id="specialButton" style="cursor:pointer;">
+                ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ
+            </p>
+        </div>
+        <div class="me-5" style="">
+            <img src="{% static 'icons/logo.svg' %}">
+        </div>
     </div>
 </nav>
-<div class="container overflow-hidden">
+
+<div class="container-lg overflow-hidden">
     {% block content %}{% endblock %}
 </div>
 

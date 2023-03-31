@@ -19,3 +19,19 @@ btn-circle {
     padding-right: 0;
     font-size: 16px;
 }
+
+.min-h {
+    height: 100px;
+}
+
+@media screen and (max-device-width: 480px) {
+    .min-h {
+        height: 150px;
+    }
+}
+
+@media screen and (max-device-width: 280px) {
+    .min-h {
+        height: 200px;
+    }
+}
