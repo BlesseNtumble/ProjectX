@@ -36,7 +36,7 @@
     </div>
 </nav>
 
-<div class="container-lg overflow-hidden pb-5">
+<div class="container-lg overflow-hidden pb-5 mx-5 mt-3">
     {% block content %}{% endblock %}
 </div>
 
@@ -62,8 +62,6 @@
                     Маршрут следования
                 </h4>
             </a>
-
-            {% if ms.user.role.name == 'Начальник поезда' %}
                 <a class="btn btn-danger btn-circle d-flex justify-content-center align-items-center" style="width: 80px;
                             height: 80px;
                             border-radius: 40px;
@@ -73,7 +71,6 @@
                         sos
                     </p>
                 </a>
-            {% endif %}
         </div>
     </div>
 </div>

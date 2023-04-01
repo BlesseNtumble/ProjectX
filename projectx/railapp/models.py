@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -42,6 +44,11 @@ class StationList(models.Model):
 
     def __str__(self):
         return f'[{self.list_id}] {self.station}'
+
+    def minus(self):
+        start = self.start_date
+        end = self.end_date
+        return (end - start)
 
     class Meta:
         verbose_name = 'Маршрутный лист'

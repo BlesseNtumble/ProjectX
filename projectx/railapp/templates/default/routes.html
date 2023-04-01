@@ -40,14 +40,13 @@
                     <div class="col">
                         {% if el.id == next_station.id %}
                             <h2>
-                                В пути: Станция {{ el.station }}
+                                В пути к: Станция {{ el.station }}
                             </h2>
                         {% else %}
                             <h4>
                                 Станция {{ el.station }}
                             </h4>
                         {% endif %}
-
                     </div>
                 </div>
                 <div class="row">
@@ -61,9 +60,11 @@
                     <div class="col">
                         {% if el.id == next_station.id %}
                             <h2>
-                                <p>
-                                    {{ el.start_date }}
+                                <p class="my-0 fs-4">
+                                    Дата прибытия: {{ el.start_date }}
                                 </p>
+                                <p class="my-0 fs-4"> Дата отправления: {{ el.end_date }}</p>
+                                <p class="my-0 fs-4"> Время стоянки: {{el.minus}}</p>
                             </h2>
                         {% else %}
                             <p>

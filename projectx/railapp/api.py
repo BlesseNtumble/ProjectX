@@ -13,7 +13,7 @@ def get_setting(setting) -> str:
 
 def get_current_station(id) -> str:
     now = datetime.datetime.now().time()
-    station = StationList.objects.filter(list_id=id, start_date__time__lte=now, end_date__time__gte=now).first()
+    station = StationList.objects.filter(list_id=id, start_date__time__lte=now, end_date__time__gte=now).last()
     return station
 
 def get_next_station(id) -> str:
