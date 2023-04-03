@@ -10,6 +10,10 @@ html, body {
     margin: 0;
 }
 
+.negative {
+    filter: invert(1);
+}
+
 btn-circle {
     width: 38px;
     height: 38px;

@@ -2,36 +2,38 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
 
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/uhpv-full.min.js' %}"></script>
     <script type="text/javascript" defer src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery-3.6.4.min.js' %}"></script>
 </head>
-<body>
-<nav class="w-100 min-h" style="background: #C7C5C5;">
+<body {% if request.session.theme == 'dark' %} class="negative" {% endif %}>
+
+<nav class="w-100" style="background: #C7C5C5;">
     <div class="container-lg d-flex h-100 align-items-center text-center">
-        <div class="ms-5 " style="">
+        <div class="ms-2 " style="">
             <button class="navbar-toggler ml-2" type="button" data-bs-toggle="offcanvas" href="#offcanvasExample"
                     role="button" aria-controls="offcanvasExample"
                     style="color: #C52E32;    border-color: #C52E32;    line-height: 2;">
-                <img src="{% static 'icons/list.svg' %}" width="64" height="64">
+                <img src="{% static 'icons/list.svg' %}" width="32" height="32">
             </button>
         </div>
         <div class="w-100 " style="">
-            <p class="fw-bold f-size" style="color: #C52E32;">
+            <p class="fw-bold fs-3 mt-2" style="color: #C52E32;">
                 {{ title }}
             </p>
         </div>
         <div class="w-100" style="">
-            <img src="{% static 'icons/eye.svg' %}" width="64" height="64" id="specialButton" style="cursor:pointer;">
+
+
         </div>
-        <div class="me-5" style="">
-            <img src="{% static 'icons/logo.svg' %}" width="128" height="128">
+        <div class="me-2" style="">
+            <img src="{% static 'icons/logo.svg' %}" width="64" height="64">
         </div>
     </div>
 </nav>
@@ -40,44 +42,44 @@
     {% block content %}{% endblock %}
 </div>
 
-<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel"
+     style="max-width: 50%">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasExampleLabel" style="color: #C52E32;">Меню</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
     </div>
-    <div class="offcanvas-body d-flex">
-        <div class="row align-items-flex-end align-items-center ">
+    <div class="offcanvas-body flex-grow-0 d-flex">
+        <div class="row align-items-flex-end align-items-center justify-content-center">
             <a href="{% url 'profile' %}" class="btn" style="height: 100px">
-                <p class="f-size" style="color: #C52E32;">
+                <p class="fs-5 fw-bold" style="color: #C52E32;">
                     Текущий рейс
                 </p>
             </a>
-            <a href="{% url 'chat' %}" class="btn">
-                <p class="f-size" style="color: #C52E32;">
+            <a href="{% url 'chat' %}" class="btn" style="height: 100px">
+                <p class="fs-5 fw-bold" style="color: #C52E32;" >
                     Чат
                 </p>
             </a>
-            <a href="{% url 'routes' %}" class="btn">
-                <p class="f-size" style="color: #C52E32;">
-                    Маршрут следования
+            <a href="{% url 'routes' %}" class="btn" style="height: 100px">
+                <p class="fs-5 fw-bold" style="color: #C52E32;">
+                    Маршрут
                 </p>
             </a>
-            <a href="{% url 'settings' %}" class="btn">
-                <p class="f-size" style="color: #C52E32;">
+            <a href="{% url 'settings' %}" class="btn" style="height: 100px">
+                <p class="fs-5 fw-bold" style="color: #C52E32;">
                     Настройки
                 </p>
             </a>
-            {% if ms.user.role.name == 'Начальник поезда' %}
-                <a class="btn btn-danger btn-circle d-flex justify-content-center align-items-center" style="width: 80px;
+
+            <a class="btn btn-danger btn-circle d-flex justify-content-center align-items-center" style="width: 80px;
                             height: 80px;
                             border-radius: 40px;
                             text-align: center;
                             font-size: 20px;">
-                    <p>
-                        sos
-                    </p>
-                </a>
-            {% endif %}
+                <p>
+                    sos
+                </p>
+            </a>
         </div>
     </div>
 </div>

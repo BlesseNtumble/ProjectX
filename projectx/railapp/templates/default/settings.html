@@ -5,15 +5,51 @@
 {% block content %}
     <div class="container p-2 mt-5">
         <div class="form-check form-switch">
-            <div class="row">
+            <div class="row text-center">
 
-                <div class="col-2">
-                    <input class="form-check-input" type="button" id="specialButton1" style="width:10em; height:5em;
-                border-color:#C52E32; cursor:pointer;">
-                </div>
-                <div class="col-6">
-                    <label class="form-check-label" for="specialButton1" style="font-size:3em;">Режим для
+                <div class="d-flex mx-2">
+                    <button class="btn-toggle" style="background-color: #ffffff;  line-height: 2; border-color: #C52E32;">
+                        <img src="{% static 'icons/eye.svg' %}" width="32" height="32" style="cursor:pointer;">
+                        <label class="form-check-label" for="specialButton1" style="font-size:14pt;">Режим для
                         слабовидящих</label>
+                    </button>
+                    <script>
+                        // Выбираем кнопку
+                        const btn = document.querySelector('.btn-toggle');
+                        // Отслеживаем щелчок по кнопке
+                        btn.addEventListener('click', function () {
+                            // Затем переключаем (добавляем/удаляем) класс .dark-theme для body
+                            document.body.classList.toggle('negative');
+
+                            function getCookie(name) {
+                                let cookieValue = null;
+                                if (document.cookie && document.cookie !== '') {
+                                    const cookies = document.cookie.split(';');
+                                    for (let i = 0; i < cookies.length; i++) {
+                                        const cookie = cookies[i].trim();
+                                        // Does this cookie string begin with the name we want?
+                                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                            break;
+                                        }
+                                    }
+                                }
+                                return cookieValue;
+                            }
+
+                            const csrftoken = getCookie('csrftoken');
+                            fetch('/update_theme', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-type': 'application/json',
+                                    'X-CSRFToken': csrftoken,
+                                }
+                            });
+                        })
+
+
+                    </script>
+
                 </div>
             </div>
         </div>

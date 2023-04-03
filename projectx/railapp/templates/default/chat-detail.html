@@ -10,7 +10,7 @@
     <i class="fas fa-times"></i>
 </div>
 
-<div id="scroll-div" class="" style="max-height: ; overflow-y: scroll;">
+<div id="scroll-div" style="margin-bottom: 150px; overflow-y: scroll;">
 
     {% for ms in messages %}
     {% if ms.user != request.user %}
@@ -90,13 +90,13 @@ $(document).on("keypress", ".input-group:has(input:input, span.input-group-btn:h
         $(document).ready(function () {
             setInterval(function () {
                 $.ajax({
-                    url: '#',
+
                     cache: false,
                     success: function (html) {
                         $("#scroll-div").load(" #scroll-div", function(){
                             $(this).children().unwrap()
                             var objDiv = document.getElementById("scroll-div");
-                            objDiv.scrollTop = objDiv.scrollHeight;
+                                objDiv.scrollTop = objDiv.scrollHeight;
                         })
 
                     }
@@ -104,7 +104,7 @@ $(document).on("keypress", ".input-group:has(input:input, span.input-group-btn:h
                 });
             }, 3000);
             var objDiv = document.getElementById("scroll-div");
-            objDiv.scrollTop = objDiv.scrollHeight;
+                objDiv.scrollTop = objDiv.scrollHeight;
         });
 
 

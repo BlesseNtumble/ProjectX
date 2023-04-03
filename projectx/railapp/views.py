@@ -13,7 +13,7 @@ from django.views.generic import CreateView
 
 from railapp import api
 from railapp.apps import template
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotAllowed
 
 from railapp.forms import RegisterForms
 from railapp.models import Settings, ChatList, Chat, Roles
@@ -93,7 +93,7 @@ def routes(request):
 
     routes = routes_d | routes_r
 
-    context = {'title': 'Маршрут следования', 'routes': routes, 'routes_len': len(routes), 'next_station': next_station}
+    context = {'title': 'Маршрут', 'routes': routes, 'routes_len': len(routes), 'next_station': next_station}
     return render(request, template + '/routes.html', context=context)
 
 
@@ -108,6 +108,20 @@ def logout_page(request):
     logout(request)
     return redirect('login')
 
+
+def update_theme(request):
+    if not request.method == 'POST':
+        return HttpResponseNotAllowed(['POST'])
+
+    if not request.session.__contains__('theme'):
+        request.session['theme'] = 'light'
+
+    if request.session['theme'] == 'dark':
+        request.session['theme'] = 'light'
+    else:
+        request.session['theme'] = 'dark'
+
+    return HttpResponse('ok')
 
 class LoginUser(LoginView):
     form_class = RegisterForms.LoginUserForm
