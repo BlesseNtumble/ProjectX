@@ -148,6 +148,25 @@ def update_theme(request):
 
     return HttpResponse('ok')
 
+@require_POST
+def plus_font(request):
+    if not request.session.__contains__('font_size'):
+        request.session['font_size'] = 6
+
+    if request.session['font_size'] > 2:
+        request.session['font_size'] = request.session['font_size'] - 1
+
+    return HttpResponse('ok')
+
+@require_POST
+def minus_font(request):
+    if not request.session.__contains__('font_size'):
+        request.session['font_size'] = 6
+
+    if request.session['font_size'] < 6:
+        request.session['font_size'] = request.session['font_size'] + 1
+
+    return HttpResponse('ok')
 
 def sos_activate(request):
     if not request.method == 'POST':

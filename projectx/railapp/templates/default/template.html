@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ru" {% if request.session.theme == 'dark' %} class="negative" {% endif %}>
+<html lang="ru"
+      class="{% if request.session.theme == 'dark' %}negative{% endif %} fs-{{ request.session.font_size }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +31,6 @@
     </script>
 </head>
 <body>
-
 <nav class="w-100" style="background: #C7C5C5;">
     <div class="container-lg d-flex h-100 align-items-center text-center">
         <div class="ms-2 " style="">
@@ -59,12 +59,12 @@
 {% endif %}
 {% if messages %}
     {% for message in messages %}
-    <div>
+        <div>
 
-        <div class="alert alert-danger fade show text-center" role="alert">
-            <strong>Начальник поезда:</strong> {{ message }}.
+            <div class="alert alert-danger fade show text-center" role="alert">
+                <strong>Начальник поезда:</strong> {{ message }}.
+            </div>
         </div>
-    </div>
     {% endfor %}
 {% endif %}
 <div class="container-lg overflow-hidden">
@@ -72,7 +72,7 @@
 </div>
 
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel"
-     style="max-width: 50%">
+     style="max-width: 80%">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasExampleLabel" style="color: #C52E32;">Меню</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
@@ -114,7 +114,9 @@
             <script>
                 // Выбираем кнопку
                 const btn_sos = document.getElementById('sos_btn');
-                const btn_eye = document.querySelector('.btn-toggle');
+                const btn_eye = document.getElementById('eye_btn');
+                const btn_aplus = document.getElementById('aplus_btn');
+                const btn_aminus = document.getElementById('aminus_btn');
                 // Отслеживаем щелчок по кнопке
                 btn_sos.addEventListener('click', function () {
 
@@ -142,6 +144,31 @@
                             'X-CSRFToken': csrftoken,
                         }
                     });
+                })
+
+                btn_aplus.addEventListener('click', function () {
+
+                    const csrftoken = getCookie('csrftoken');
+                    fetch('/plus_font', {
+                        method: 'POST',
+                        headers: {
+                            'Content-type': 'application/json',
+                            'X-CSRFToken': csrftoken,
+                        }
+                    });
+                    location.reload();
+                })
+                btn_aminus.addEventListener('click', function () {
+
+                    const csrftoken = getCookie('csrftoken');
+                    fetch('/minus_font', {
+                        method: 'POST',
+                        headers: {
+                            'Content-type': 'application/json',
+                            'X-CSRFToken': csrftoken,
+                        }
+                    });
+                    location.reload();
                 })
 
 
