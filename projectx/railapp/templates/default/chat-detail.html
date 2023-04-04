@@ -10,54 +10,54 @@
         <i class="fas fa-times"></i>
     </div>
     <div id="scroll-div" style="height: 60vh; overflow-y: scroll;">
-        <div  style="margin-bottom: 100px; ">
+        <div id="scroll-div2" style="margin-bottom: 100px; ">
 
-        {% for ms in chat %}
-            {% if ms.user != request.user %}
-                <div class="d-flex flex-row justify-content-start mb-4">
-                    {% if ms.user.role.name == 'Начальник поезда' %}
-                        <div class="p-3 ms-3" style="border-radius: 15px; background-color: #C52E32;">
-                            <p style="color:#ffffff">
-                                {{ ms.user.first_name }} {{ ms.user.last_name }}, {{ ms.user.role }}
-                            </p>
+            {% for ms in chat %}
+                {% if ms.user != request.user %}
+                    <div class="d-flex flex-row justify-content-start mb-4">
+                        {% if ms.user.role.name == 'Начальник поезда' %}
+                            <div class="p-3 ms-3" style="border-radius: 15px; background-color: #C52E32;">
+                                <p style="color:#ffffff">
+                                    {{ ms.user.first_name }} {{ ms.user.last_name }}, {{ ms.user.role }}
+                                </p>
 
-                            <h5 class="mb-0" style="color:#ffffff"> {{ ms.text }}</h5>
-                            <p style="color:#ffffff;justify-content: flex-end;
+                                <h5 class="mb-0" style="color:#ffffff"> {{ ms.text }}</h5>
+                                <p style="color:#ffffff;justify-content: flex-end;
                 display: flex;
                 font-size: 80%;
                 margin-top: 5%;">  {{ ms.date }}</p>
-                        </div>
-                    {% else %}
-                        <div class="p-3 ms-3" style="border-radius: 15px; background-color: #767575;">
-                            <p style="color:#ffffff">
-                                {{ ms.user.first_name }} {{ ms.user.last_name }}, {{ ms.user.role }}
-                            </p>
+                            </div>
+                        {% else %}
+                            <div class="p-3 ms-3" style="border-radius: 15px; background-color: #767575;">
+                                <p style="color:#ffffff">
+                                    {{ ms.user.first_name }} {{ ms.user.last_name }}, {{ ms.user.role }}
+                                </p>
 
-                            <h5 class="mb-0" style="color:#ffffff"> {{ ms.text }}</h5>
-                            <p style="color:#ffffff; justify-content: flex-end;
+                                <h5 class="mb-0" style="color:#ffffff"> {{ ms.text }}</h5>
+                                <p style="color:#ffffff; justify-content: flex-end;
                 display: flex;
                 font-size: 80%;
                 margin-top: 5%;">  {{ ms.date }}</p>
-                        </div>
-                    {% endif %}
-                </div>
-            {% else %}
-                <div class="d-flex flex-row justify-content-end mb-4">
-                    <div class="p-3 me-3 border" style="border-radius: 15px; background-color:#c4c4c4;">
-                        <p>
-                            {{ ms.user.first_name }} (Вы)
-                        </p>
-                        <h5 class="mb-0"> {{ ms.text }}</h5>
-                        <p style="justify-content: flex-end;
+                            </div>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="d-flex flex-row justify-content-end mb-4">
+                        <div class="p-3 me-3 border" style="border-radius: 15px; background-color:#c4c4c4;">
+                            <p>
+                                {{ ms.user.first_name }} (Вы)
+                            </p>
+                            <h5 class="mb-0"> {{ ms.text }}</h5>
+                            <p style="justify-content: flex-end;
                 display: flex;
                 font-size: 80%;
                 margin-top: 5%;"> {{ ms.date }}
-                        </p>
+                            </p>
+                        </div>
                     </div>
-                </div>
-            {% endif %}
-        {% endfor %}
-    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
     </div>
     <div id="eto-psevdo-footer"></div>
     <div class="row m-2 fixed-bottom" style="background-color: #767575;">
@@ -74,8 +74,8 @@
             </div>
         </form>
     </div>
-   <script>
-        $('#send_message').click(function (){
+    <script>
+        $('#send_message').click(function () {
             var objDiv = document.getElementById("scroll-div");
             objDiv.scrollTop = objDiv.scrollHeight;
         });
@@ -84,7 +84,7 @@
                 $.ajax({
                     cache: false,
                     success: function (html) {
-                        $("#scroll-div").load(" #scroll-div", function(){
+                        $("#scroll-div2").load(" #scroll-div2", function () {
                             $(this).children().unwrap();
 
                         })
