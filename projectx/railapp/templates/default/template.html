@@ -57,6 +57,16 @@
         </div>
     </div>
 {% endif %}
+{% if messages %}
+    {% for message in messages %}
+    <div>
+
+        <div class="alert alert-danger fade show text-center" role="alert">
+            <strong>Начальник поезда:</strong> {{ message }}.
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}
 <div class="container-lg overflow-hidden">
     {% block content %}{% endblock %}
 </div>

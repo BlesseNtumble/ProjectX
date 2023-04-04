@@ -1,5 +1,6 @@
 import datetime
 
+from django.contrib import messages
 from django.contrib.auth import logout, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
@@ -23,7 +24,7 @@ from railapp.models import Settings, ChatList, Chat, Roles
 def index(request):
     context = {'title': 'РЖД Контент'}
     return redirect('profile')
-    #return render(request, template + '/index.html', context=context)
+    # return render(request, template + '/index.html', context=context)
 
 
 @login_required(login_url='/login')
@@ -31,7 +32,8 @@ def chat(request):
     chats = api.get_chat_list()
     context = {'title': 'Чаты', 'chats': chats,
                'sos': api.get_setting('sos_active').__contains__('[1,'),
-               'sos_wagon': api.get_setting('sos_active')[3:-1]}
+               'sos_wagon': api.get_setting('sos_active')[3:-1],
+               'alert_np': api.get_setting('alert_np')}
 
     role = Roles.objects.filter(name='Проводник').first()
     current_chatid = api.get_setting('current_chatid')
@@ -40,7 +42,7 @@ def chat(request):
         return redirect('chat-detail', slug=current_chatid)
 
     if request.POST:
-        #name = request.POST.get('chat_name', api.get_setting('current_route'))
+        # name = request.POST.get('chat_name', api.get_setting('current_route'))
         route = api.get_setting('current_route')
         tabel = api.get_setting('current_tabel')
 
@@ -59,14 +61,14 @@ def chat(request):
 
 @login_required(login_url='/login')
 def chatdetail(request, slug):
-
     chatlist = ChatList.objects.filter(id=int(slug)).first()
-    messages = Chat.objects.filter(chat_id=chatlist)
+    chat = Chat.objects.filter(chat_id=chatlist)
     can_write = True
 
-    context = {'title': 'Чат', 'chatlist': chatlist, 'messages': messages, 'can_write': can_write,
+    context = {'title': 'Чат', 'chatlist': chatlist, 'chat': chat, 'can_write': can_write,
                'sos': api.get_setting('sos_active').__contains__('[1,'),
-               'sos_wagon': api.get_setting('sos_active')[3:-1]}
+               'sos_wagon': api.get_setting('sos_active')[3:-1],
+               'alert_np': api.get_setting('alert_np')}
 
     if request.POST and not chatlist.is_readonly:
         text = request.POST.get('text', None)
@@ -77,6 +79,9 @@ def chatdetail(request, slug):
             message.text = text
             message.date = timezone.now()
             message.save()
+
+            if request.user.role.name == 'Начальник поезда':
+                messages.info(request, text)
 
     return render(request, template + '/chat-detail.html', context=context)
 
@@ -93,7 +98,8 @@ def profile(request):
 
     context = {'title': 'Рейс', 'route': route, 'tabel': tabel, 'wagoon': wagoon, 'current_station': current_station,
                'next_station': next_station, 'sos': api.get_setting('sos_active').__contains__('[1,'),
-               'sos_wagon': api.get_setting('sos_active')[3:-1]}
+               'sos_wagon': api.get_setting('sos_active')[3:-1],
+               'alert_np': api.get_setting('alert_np')}
     return render(request, template + '/profile.html', context=context)
 
 
@@ -108,14 +114,16 @@ def routes(request):
 
     context = {'title': 'Маршрут', 'routes': routes, 'routes_len': len(routes),
                'next_station': next_station, 'sos': api.get_setting('sos_active').__contains__('[1,'),
-               'sos_wagon': api.get_setting('sos_active')[3:-1]}
+               'sos_wagon': api.get_setting('sos_active')[3:-1],
+               'alert_np': api.get_setting('alert_np')}
     return render(request, template + '/routes.html', context=context)
 
 
 @login_required(login_url='/login')
 def settings(request):
     context = {'title': 'Настройки', 'sos': api.get_setting('sos_active').__contains__('[1,'),
-               'sos_wagon': api.get_setting('sos_active')[3:-1]}
+               'sos_wagon': api.get_setting('sos_active')[3:-1],
+               'alert_np': api.get_setting('alert_np')}
     return render(request, template + '/settings.html', context=context)
 
 
@@ -139,6 +147,7 @@ def update_theme(request):
 
     return HttpResponse('ok')
 
+
 def sos_activate(request):
     if not request.method == 'POST':
         return HttpResponseNotAllowed(['POST'])
@@ -160,6 +169,7 @@ def sos_activate(request):
 
     return HttpResponse('ok')
 
+
 class LoginUser(LoginView):
     form_class = RegisterForms.LoginUserForm
     template_name = template + '/auth.html'
@@ -179,4 +189,3 @@ class RegisterUser(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect('index')
-
