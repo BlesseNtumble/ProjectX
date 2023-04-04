@@ -11,6 +11,23 @@
     <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
     <script type="text/javascript" defer src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery-3.6.4.min.js' %}"></script>
+    <script>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
 </head>
 <body {% if request.session.theme == 'dark' %} class="negative" {% endif %}>
 
@@ -28,16 +45,18 @@
                 {{ title }}
             </p>
         </div>
-        <div class="w-100" style="">
-
-
-        </div>
         <div class="me-2" style="">
             <img src="{% static 'icons/logo.svg' %}" width="64" height="64">
         </div>
     </div>
 </nav>
-
+{% if sos %}
+    <div>
+        <div class="alert alert-danger fade show text-center" role="alert">
+            <strong>Внимание!</strong> Нажата кнопка SOS в вагоне {{ sos_wagon }}.
+        </div>
+    </div>
+{% endif %}
 <div class="container-lg overflow-hidden">
     {% block content %}{% endblock %}
 </div>
@@ -56,7 +75,7 @@
                 </p>
             </a>
             <a href="{% url 'chat' %}" class="btn" style="height: 100px">
-                <p class="fs-5 fw-bold" style="color: #C52E32;" >
+                <p class="fs-5 fw-bold" style="color: #C52E32;">
                     Чат
                 </p>
             </a>
@@ -70,16 +89,53 @@
                     Настройки
                 </p>
             </a>
-
-            <a class="btn btn-danger btn-circle d-flex justify-content-center align-items-center" style="width: 80px;
-                            height: 80px;
-                            border-radius: 40px;
-                            text-align: center;
-                            font-size: 20px;">
-                <p>
-                    sos
+            <a id="sos_btn" class="btn btn-danger btn-circle d-flex justify-content-center align-items-center"
+               style="width: 80px;
+                       height: 80px;
+                       border-radius: 40px;
+                       text-align: center;
+                       font-size: 20px;
+                       {% if sos %} background-color: #C52E32; {% else %} background-color:#C7C5C5; {% endif %}">
+                <p class="mt-2">
+                    SOS
                 </p>
             </a>
+
+            <script>
+                // Выбираем кнопку
+                const btn_sos = document.getElementById('sos_btn');
+                const btn_eye = document.querySelector('.btn-toggle');
+                // Отслеживаем щелчок по кнопке
+                btn_sos.addEventListener('click', function () {
+
+                    const csrftoken = getCookie('csrftoken');
+                    fetch('/sos_activate', {
+                        method: 'POST',
+                        headers: {
+                            'Content-type': 'application/json',
+                            'X-CSRFToken': csrftoken,
+                        }
+                    });
+
+                    location.reload();
+                });
+
+                btn_eye.addEventListener('click', function () {
+                    // Затем переключаем (добавляем/удаляем) класс .dark-theme для body
+                    document.body.classList.toggle('negative');
+
+                    const csrftoken = getCookie('csrftoken');
+                    fetch('/update_theme', {
+                        method: 'POST',
+                        headers: {
+                            'Content-type': 'application/json',
+                            'X-CSRFToken': csrftoken,
+                        }
+                    });
+                })
+
+
+            </script>
         </div>
     </div>
 </div>

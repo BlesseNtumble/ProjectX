@@ -4,22 +4,24 @@
 {% block content %}
 <div style="height:100%;">
     <h1>
-        Данные о пользователе
+        Данные о рейсе
     </h1>
     <h2>
-        Номер рейса:
-    </h2>
-    <div>
-        <h2>
-            <ul>
+        Рейс:
+        <ul>
                 <li>
-            <u>
-                {{ reys }}
-            </u>
+                    <p class="text-decoration-underline">{{ route }}</p>
                 </li>
-            </ul>
-        </h2>
-    </div>
+        </ul>
+    </h2>
+    <h2>
+        Табельный номер:
+        <ul>
+                <li>
+                    <p class="text-decoration-underline">{{ tabel }}</p>
+            </li>
+        </ul>
+    </h2>
     <h2>
 
         Текущая станция:

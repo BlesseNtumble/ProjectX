@@ -3,53 +3,57 @@
 {% load static %}
 {% block content %}
 
-<div class="main d-flex align-content-stretch
+    <div class="main d-flex align-content-stretch
  justify-content-space-between" style="flex-wrap: wrap; flex-direction: column;">
-    {% if chats %}
-    {% for el in chats %}
-    <div class="row">
-        <div class="col">
-            <a class="btn m-3" style="
+        {% if chats %}
+            {% for el in chats %}
+                <div class="row">
+                    <div class="col">
+                        <a class="btn m-3" style="
                 border-radius: 20px;
                 background-color: #767575;
                 color: #ffffff;" href="{% url 'chat-detail' el.id %}">
-                {{ el }}
-            </a>
+                            {{ el }}
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="alert alert-warning">Упс! Ничего нет.</p>
+        {% endif %}
+        <div class="row fs-4 mb-3 mt-auto fixed-bottom">
+            <button class="btn btn-primary w-100 mt-2" data-bs-toggle="modal" data-bs-target="#createChat"
+                    data-bs-whatever="@mdo" style="height: 80px; background-color: #D9D9D9; border-color:#C52E32;">
+                <img src="{% static 'icons/new-chat.svg' %}">
+                <h3 class="text-black">
+                    Создать чат
+                </h3>
+            </button>
         </div>
     </div>
-    {% endfor %}
-    <div class="row fs-4 mb-3 mt-auto fixed-bottom">
-        <button class="btn btn-primary w-100 mt-2" data-bs-toggle="modal" data-bs-target="#createChat"
-                data-bs-whatever="@mdo" style="height: 80px; background-color: #D9D9D9; border-color:#C52E32;">
-            <img src="{% static 'icons/new-chat.svg' %}">
-            <h3>
-                Создать чат
-            </h3>
-        </button>
-    </div>
-</div>
-<div class="modal fade" id="createChat" tabindex="-1" aria-labelledby="createChatLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="createChatLabel">Создать чат</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-            </div>
-            <div class="modal-body">
-                <form action="" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <input class="form-control" name="chat_name" placeholder="Введите название" type="text"/>
-                    <button class="btn btn-primary w-100 mt-2" style="height: 80px; background-color: #D9D9D9; border-color:#C52E32;" type="submit">
-                            <h3>
+    <div class="modal fade" id="createChat" tabindex="-1" aria-labelledby="createChatLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createChatLabel">Создать чат</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <p>Вы хотите создать новый чат?</p>
+                        <button class="btn btn-primary w-100 mt-2"
+                                style="height: 80px; background-color: #D9D9D9; border-color:#C52E32;"
+                                type="submit">
+                            <h3 class="text-black">
                                 Создать
                             </h3>
                         </button>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
-{% else %}
-<p class="alert alert-warning">Упс! Ничего нет.</p>
-{% endif %}
+
 {% endblock %}

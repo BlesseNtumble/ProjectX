@@ -14,4 +14,5 @@ urlpatterns = [
     path('register', RegisterUser.as_view(), name='register'),
     path('logout', logout_page, name='logout'),
     path('update_theme', update_theme, name='update_theme'),
+    path('sos_activate', sos_activate, name='sos_activate'),
 ]

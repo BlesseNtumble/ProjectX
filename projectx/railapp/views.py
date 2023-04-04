@@ -29,7 +29,9 @@ def index(request):
 @login_required(login_url='/login')
 def chat(request):
     chats = api.get_chat_list()
-    context = {'title': 'Чаты', 'chats': chats, }
+    context = {'title': 'Чаты', 'chats': chats,
+               'sos': api.get_setting('sos_active').__contains__('[1,'),
+               'sos_wagon': api.get_setting('sos_active')[3:-1]}
 
     role = Roles.objects.filter(name='Проводник').first()
     current_chatid = api.get_setting('current_chatid')
@@ -38,13 +40,19 @@ def chat(request):
         return redirect('chat-detail', slug=current_chatid)
 
     if request.POST:
-        name = request.POST.get('chat_name', api.get_setting('current_route'))
+        #name = request.POST.get('chat_name', api.get_setting('current_route'))
+        route = api.get_setting('current_route')
+        tabel = api.get_setting('current_tabel')
 
         chat = ChatList()
-        chat.chat_name = name
+        chat.chat_name = f'{route}, {tabel}'
         chat.created_date = datetime.datetime.now()
         chat.is_readonly = False
         chat.save()
+
+        stg = Settings.objects.filter(key='current_chatid').first()
+        stg.value = str(chat.id)
+        stg.save()
 
     return render(request, template + '/chat.html', context=context)
 
@@ -56,9 +64,11 @@ def chatdetail(request, slug):
     messages = Chat.objects.filter(chat_id=chatlist)
     can_write = True
 
-    context = {'title': 'Чат', 'chatlist': chatlist, 'messages': messages, 'can_write': can_write }
+    context = {'title': 'Чат', 'chatlist': chatlist, 'messages': messages, 'can_write': can_write,
+               'sos': api.get_setting('sos_active').__contains__('[1,'),
+               'sos_wagon': api.get_setting('sos_active')[3:-1]}
 
-    if request.POST:
+    if request.POST and not chatlist.is_readonly:
         text = request.POST.get('text', None)
         if text:
             message = Chat()
@@ -73,14 +83,17 @@ def chatdetail(request, slug):
 
 @login_required(login_url='/login')
 def profile(request):
-    reys = api.get_setting('current_route')
+    route = api.get_setting('current_route')
+    tabel = api.get_setting('current_tabel')
     wagoon = 'Заказчик сказал что поезд без вагонов'
 
     number = api.get_setting('current_routelist')
     current_station = api.get_current_station(int(number))
     next_station = api.get_next_station(int(number))
 
-    context = {'title': 'Профиль', 'reys': reys, 'wagoon': wagoon, 'current_station': current_station, 'next_station': next_station }
+    context = {'title': 'Рейс', 'route': route, 'tabel': tabel, 'wagoon': wagoon, 'current_station': current_station,
+               'next_station': next_station, 'sos': api.get_setting('sos_active').__contains__('[1,'),
+               'sos_wagon': api.get_setting('sos_active')[3:-1]}
     return render(request, template + '/profile.html', context=context)
 
 
@@ -93,13 +106,16 @@ def routes(request):
 
     routes = routes_d | routes_r
 
-    context = {'title': 'Маршрут', 'routes': routes, 'routes_len': len(routes), 'next_station': next_station}
+    context = {'title': 'Маршрут', 'routes': routes, 'routes_len': len(routes),
+               'next_station': next_station, 'sos': api.get_setting('sos_active').__contains__('[1,'),
+               'sos_wagon': api.get_setting('sos_active')[3:-1]}
     return render(request, template + '/routes.html', context=context)
 
 
 @login_required(login_url='/login')
 def settings(request):
-    context = {'title': 'Настройки'}
+    context = {'title': 'Настройки', 'sos': api.get_setting('sos_active').__contains__('[1,'),
+               'sos_wagon': api.get_setting('sos_active')[3:-1]}
     return render(request, template + '/settings.html', context=context)
 
 
@@ -120,6 +136,27 @@ def update_theme(request):
         request.session['theme'] = 'light'
     else:
         request.session['theme'] = 'dark'
+
+    return HttpResponse('ok')
+
+def sos_activate(request):
+    if not request.method == 'POST':
+        return HttpResponseNotAllowed(['POST'])
+
+    if api.get_setting('sos_active') is None:
+        stg = Settings()
+        stg.key = 'sos_active'
+        stg.value = '[0,-1]'
+        stg.save()
+
+    if api.get_setting('sos_active').__contains__('[1,'):
+        stg = Settings.objects.filter(key='sos_active').first()
+        stg.value = '[0,-1]'
+        stg.save()
+    else:
+        stg = Settings.objects.filter(key='sos_active').first()
+        stg.value = f'[1, {request.user.number_wagon}]'
+        stg.save()
 
     return HttpResponse('ok')
 

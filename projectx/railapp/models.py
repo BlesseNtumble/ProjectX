@@ -17,7 +17,7 @@ class Roles(models.Model):
 
 class CustomUser(AbstractUser):
     role = models.ForeignKey(Roles, on_delete=models.SET_NULL, null=True, blank=False)
-    number_route = models.CharField(max_length=6, null=True, blank=False)
+    number_route = models.CharField(max_length=20, null=True, blank=False)
     number_wagon = models.IntegerField(null=True, blank=False)
 
 
