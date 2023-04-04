@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" {% if request.session.theme == 'dark' %} class="negative" {% endif %}>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,7 +29,7 @@
         }
     </script>
 </head>
-<body {% if request.session.theme == 'dark' %} class="negative" {% endif %}>
+<body>
 
 <nav class="w-100" style="background: #C7C5C5;">
     <div class="container-lg d-flex h-100 align-items-center text-center">
