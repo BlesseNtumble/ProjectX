@@ -73,12 +73,9 @@ class StationList(models.Model):
         now = datetime.now().astimezone()
         start = self.start_date.astimezone()
         end = self.end_date
-
         res = (start - now)
-
         if res.days >= 0:
             time = self._convert_to_preferred_format(res.seconds)
-
             return time[1] + 1
         return -1
 

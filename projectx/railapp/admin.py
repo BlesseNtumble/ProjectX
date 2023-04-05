@@ -95,6 +95,7 @@ class AdminStationList(admin.ModelAdmin):
         form.base_fields['end_date'].label = 'Дата отправки'
         form.base_fields['list_id'].label = '№ Маршрута'
         form.base_fields['station'].label = 'Станция'
+        form.base_fields['type'].label = 'Тип рейса'
         return form
 
     def get_list_id(self, obj):
@@ -117,15 +118,57 @@ class AdminStationList(admin.ModelAdmin):
 
 @admin.register(ChatList)
 class AdminChatList(admin.ModelAdmin):
-    list_display = ['chat_name', 'created_date', 'closed_date', 'is_readonly']
+    list_display = ['get_chat_name', 'get_created_date', 'get_closed_date', 'get_is_readonly']
     list_display_links = list_display
     search_fields = list_display
 
+    def get_form(self, request, obj=None, change=False, **kwargs):
+        form = super().get_form(request, obj, change, **kwargs)
+        form.base_fields['chat_name'].label = 'Название чата'
+        form.base_fields['created_date'].label = 'Дата создания'
+        form.base_fields['closed_date'].label = 'Дата закрытия'
+        form.base_fields['is_readonly'].label = 'Архивированный'
+
+    def get_chat_name(self, obj):
+        return obj.chat_name
+
+    def get_created_date(self, obj):
+        return obj.created_date
+
+    def get_closed_date(self, obj):
+        return obj.closed_date
+
+    def get_is_readonly(self, obj):
+        return obj.is_readonly
+
+    get_chat_name.short_description = 'Название чата'
+    get_created_date.short_description = 'Дата создания'
+    get_closed_date.short_description = 'Дата закрытия'
+    get_is_readonly.short_description = 'Архивированный'
+
 @admin.register(Chat)
 class AdminChat(admin.ModelAdmin):
-    list_display = ['chat_id', 'user', 'text', 'date']
+    list_display = ['get_chat_id', 'get_user', 'get_text', 'get_date']
     list_display_links = list_display
     search_fields = list_display
+
+
+    def get_chat_id(self, obj):
+        return obj.chat_id
+
+    def get_user(self, obj):
+        return obj.user
+
+    def get_text(self, obj):
+        return obj.text
+
+    def get_date(self, obj):
+        return obj.date
+
+    get_chat_id.short_description = '№ Чата'
+    get_user.short_description = 'Пользователь'
+    get_text.short_description = 'Текст'
+    get_date.short_description = 'Дата сообщения'
 
 @admin.register(Settings)
 class AdminSettings(admin.ModelAdmin):
