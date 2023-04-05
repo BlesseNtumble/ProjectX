@@ -12,5 +12,9 @@ urlpatterns = [
     path('routes', routes, name='routes'),
     path('settings', settings, name='settings'),
     path('register', RegisterUser.as_view(), name='register'),
-    path('logout', logout_page, name='logout')
+    path('logout', logout_page, name='logout'),
+    path('update_theme', update_theme, name='update_theme'),
+    path('sos_activate', sos_activate, name='sos_activate'),
+    path('plus_font', plus_font, name='plus_font'),
+    path('minus_font', minus_font, name='minus_font'),
 ]

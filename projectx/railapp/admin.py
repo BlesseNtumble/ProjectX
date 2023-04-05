@@ -32,7 +32,7 @@ class AdminCustomUser(UserAdmin):
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
         form.base_fields['role'].label = 'Роль'
-        form.base_fields['number_route'].label = 'Номер рейса'
+        form.base_fields['number_route'].label = 'Номер табельного'
         form.base_fields['number_wagon'].label = 'Номер вагона'
         return form
 
@@ -46,7 +46,7 @@ class AdminCustomUser(UserAdmin):
         return obj.number_wagon
 
     get_role.short_description = 'Роль'
-    get_number_route.short_description = 'Номер рейса'
+    get_number_route.short_description = 'Номер табельного'
     get_number_wagon.short_description = 'Номер вагона'
 
 @admin.register(Roles)
@@ -85,7 +85,7 @@ class AdminStations(admin.ModelAdmin):
 
 @admin.register(StationList)
 class AdminStationList(admin.ModelAdmin):
-    list_display = ['list_id', 'station', 'get_start_date', 'get_end_date']
+    list_display = ['get_list_id', 'get_station', 'get_start_date', 'get_end_date']
     list_display_links = list_display
     search_fields = list_display
 
@@ -93,7 +93,15 @@ class AdminStationList(admin.ModelAdmin):
         form = super().get_form(request, obj, change, **kwargs)
         form.base_fields['start_date'].label = 'Дата прибытия'
         form.base_fields['end_date'].label = 'Дата отправки'
+        form.base_fields['list_id'].label = '№ Маршрута'
+        form.base_fields['station'].label = 'Станция'
         return form
+
+    def get_list_id(self, obj):
+        return obj.list_id
+
+    def get_station(self, obj):
+        return obj.station
 
     def get_start_date(self, obj):
         return obj.start_date
@@ -101,6 +109,9 @@ class AdminStationList(admin.ModelAdmin):
     def get_end_date(self, obj):
         return obj.end_date
 
+
+    get_list_id.short_description = '№ Маршрута'
+    get_station.short_description = 'Станция'
     get_start_date.short_description = 'Дата прибытия'
     get_end_date.short_description = 'Дата отправки'
 

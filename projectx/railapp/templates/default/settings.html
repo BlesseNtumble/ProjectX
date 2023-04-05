@@ -7,13 +7,25 @@
         <div class="form-check form-switch">
             <div class="row">
 
-                <div class="col-2">
-                    <input class="form-check-input" type="button" id="specialButton1" style="width:10em; height:5em;
-                border-color:#C52E32; cursor:pointer;">
-                </div>
-                <div class="col-6">
-                    <label class="form-check-label" for="specialButton1" style="font-size:3em;">Режим для
-                        слабовидящих</label>
+                <div class="d-flex">
+                        <p>Настройки интерфейса:</p>
+
+                        <div class="me-1">
+                            <button id="eye_btn" class="btn-toggle me-1"
+                                    style="background-color: #ffffff;  line-height: 2; border-color: #C52E32; min-width: 45px; height: 45px">
+                                <img src="{% static 'icons/eye.svg' %}" width="25" height="25" style="cursor:pointer;">
+                            </button>
+                        </div>
+                        <div class="d-flex">
+                            <button id="aplus_btn" class="btn-toggle me-1"
+                                    style="background-color: #ffffff;  line-height: 2; border-color: #C52E32;min-width: 45px; height: 45px">
+                                <label class="form-check-label" for="specialButton1" style="font-size:14pt;">A+</label>
+                            </button>
+                            <button id="aminus_btn" class="btn-toggle"
+                                    style="background-color: #ffffff;  line-height: 2; border-color: #C52E32;min-width: 45px; height: 45px">
+                                <label class="form-check-label" for="specialButton1" style="font-size:14pt;">A-</label>
+                            </button>
+                        </div>
                 </div>
             </div>
         </div>
