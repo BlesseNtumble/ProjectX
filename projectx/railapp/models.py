@@ -1,3 +1,7 @@
+from datetime import datetime
+
+from django.utils import timezone
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -47,6 +51,29 @@ class StationList(models.Model):
         verbose_name = 'Маршрутный лист'
         verbose_name_plural = 'Маршрутные листы'
 
+    def on_station(self):
+        now = datetime.now(timezone.utc)
+        start = self.start_date
+        end = self.end_date
+        return (now > start and now < end)
+
+    def minus(self):
+        start = self.start_date
+        if self.on_station():
+            start = datetime.now(timezone.utc)
+        end = self.end_date
+        res = (end - start).seconds
+
+        return self._convert_to_preferred_format(res)
+
+    def _convert_to_preferred_format(self, sec):
+        sec = sec % (24 * 3600)
+        hour = sec // 3600
+        sec %= 3600
+        min = sec // 60
+        sec %= 60
+
+        return "%02d:%02d" % (min, sec)
 
 class ChatList(models.Model):
     chat_name = models.CharField(max_length=256, null=False, blank=False)

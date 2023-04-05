@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.utils import timezone
 
-from railapp.models import Stations, StationList, Settings, ChatList, CustomUser
+from railapp.models import StationList, Settings, ChatList
 
 
 def get_setting(setting) -> str:
@@ -48,3 +48,6 @@ def get_all_logged_in_users():
 
     # Query all logged in users based on id list
     return User.objects.filter(id__in=uid_list)
+
+
+
