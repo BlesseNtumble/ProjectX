@@ -2,7 +2,7 @@
 
 {% load static %}
 {% block content %}
-    <div class="p-1">
+    <div id="content" class="p-1">
 
         {% if routes %}
             {% for el in routes %}
@@ -59,13 +59,17 @@
                              style="color:#C52E32;opacity:1;width: 5px;height: 100%;"></div>
                     </div>
                     <div class="col">
+
                         {% if el.id == current_station.id %}
                             <h2>
-                               <p class="my-0 fs-4">Дата прибытия: {{ el.start_date }}</p>
+                                <p class="my-0 text-danger"> Время стоянки: {{ el.minus }}</p>
+                                <p class="my-0 fs-4">Дата прибытия: {{ el.start_date }}</p>
                                 <p class="my-0 fs-4"> Дата отправления: {{ el.end_date }}</p>
-                                <p class="my-0 fs-4"> Время стоянки: {{ el.minus }}</p>
+
                             </h2>
                         {% else %}
+                            {% if el.in_30_min != -1 %}
+                                <p class="my-0 text-danger">Время до прибытия: {{ el.in_30_min }} мин. </p>{% endif %}
                             <p class="my-0">Дата прибытия: {{ el.start_date }}</p>
                             <p class="my-0">Дата отправления: {{ el.end_date }}</p>
                         {% endif %}
@@ -73,6 +77,25 @@
                 </div>
 
             {% endfor %}
+
+            <script>
+                $(document).ready(function () {
+                    setInterval(function () {
+                        $.ajax({
+                            cache: false,
+                            success: function (html) {
+                                $("#content").load(" #content", function () {
+                                    $(this).children().unwrap();
+
+                                })
+
+                            }
+
+                        });
+                    }, 1000);
+                });
+
+            </script>
         {% else %}
             <p class="alert alert-warning">Упс! Ничего нет.</p>
         {% endif %}

@@ -66,7 +66,22 @@ class StationList(models.Model):
         if end is not None:
             res = (end - start).seconds
 
-        return self._convert_to_preferred_format(res)
+        return "%02d:%02d:%02d" % self._convert_to_preferred_format(res)
+
+
+    def in_30_min(self):
+        now = datetime.now().astimezone()
+        start = self.start_date.astimezone()
+        end = self.end_date
+
+        res = (start - now)
+
+        if res.days >= 0:
+            time = self._convert_to_preferred_format(res.seconds)
+
+            return time[1] + 1
+        return -1
+
 
 
     def _convert_to_preferred_format(self, sec):
@@ -76,7 +91,7 @@ class StationList(models.Model):
         min = sec // 60
         sec %= 60
 
-        return "%02d:%02d:%02d" % (hour, min, sec)
+        return (hour, min, sec)
 
 class ChatList(models.Model):
     chat_name = models.CharField(max_length=256, null=False, blank=False)
