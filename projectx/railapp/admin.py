@@ -76,13 +76,6 @@ class AdminStations(admin.ModelAdmin):
 
     get_name.short_description = 'Название'
 
-    def save_model(self, request, obj, form, change):
-        if obj.start_date > obj.end_date:
-            self.message_user(request, 'Дата прибытия не может быть больше даты отправки!', messages.ERROR)
-            return
-
-        obj.save()
-
 @admin.register(StationList)
 class AdminStationList(admin.ModelAdmin):
     list_display = ['get_list_id', 'get_station', 'get_start_date', 'get_end_date']

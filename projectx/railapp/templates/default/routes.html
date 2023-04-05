@@ -66,8 +66,9 @@
                                 <p class="my-0 fs-4"> Время стоянки: {{ el.minus }}</p>
                             </h2>
                         {% else %}
-                            <p class="my-0">Дата прибытия: {{ el.start_date }}</p>
-                            <p class="my-0">Дата отправления: {{ el.end_date }}</p>
+                            <p>
+                                {{ el.start_date }}
+                            </p>
                         {% endif %}
                     </div>
                 </div>

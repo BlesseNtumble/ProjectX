@@ -28,6 +28,8 @@
             }
             return cookieValue;
         }
+
+
     </script>
 </head>
 <body>
@@ -50,22 +52,34 @@
         </div>
     </div>
 </nav>
-{% if sos %}
-    <div>
-        <div class="alert alert-danger fade show text-center" role="alert">
-            <strong>Внимание!</strong> Нажата кнопка SOS в вагоне {{ sos_wagon }}.
+<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            {% if unread_count %}
+            You have <strong>{{ unread_count }}</strong> unread notifications.
+            {% endif %}
+            {% for notification in user.notifications.unread %}
+            <div>
+                Message from <b>{{ notification.actor }}</b>
+                <button class="dropdown-item" type="button">{{ notification.description }}</button>
+            </div>
+            <div class="dropdown-divider"></div>
+            {% endfor %}
         </div>
+{% if sos %}
+<div>
+    <div class="alert alert-danger fade show text-center" role="alert">
+        <strong>Внимание!</strong> Нажата кнопка SOS в вагоне {{ sos_wagon }}.
     </div>
+</div>
 {% endif %}
 {% if messages %}
-    {% for message in messages %}
-        <div>
+{% for message in messages %}
+<div>
 
-            <div class="alert alert-danger fade show text-center" role="alert">
-                <strong>Начальник поезда:</strong> {{ message }}.
-            </div>
-        </div>
-    {% endfor %}
+    <div class="alert alert-danger fade show text-center" role="alert">
+        <strong>Начальник поезда:</strong> {{ message }}.
+    </div>
+</div>
+{% endfor %}
 {% endif %}
 <div class="container-lg overflow-hidden">
     {% block content %}{% endblock %}
@@ -170,6 +184,8 @@
                     });
                     location.reload();
                 })
+
+
 
 
             </script>

@@ -47,6 +47,11 @@ class StationList(models.Model):
     def __str__(self):
         return f'[{self.list_id}] {self.station}'
 
+    def on_station(self):
+        start = self.start_date
+        end = self.end_date
+        return (end - start).seconds > 0
+
     class Meta:
         verbose_name = 'Маршрутный лист'
         verbose_name_plural = 'Маршрутные листы'

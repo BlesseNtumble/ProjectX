@@ -1,6 +1,9 @@
-from django.urls import path
+from django.template.defaulttags import url
 
 from railapp.views import *
+from django.urls import path, include, re_path
+
+import notifications.urls
 
 urlpatterns = [
     path('', index, name='index'),
@@ -17,4 +20,5 @@ urlpatterns = [
     path('sos_activate', sos_activate, name='sos_activate'),
     path('plus_font', plus_font, name='plus_font'),
     path('minus_font', minus_font, name='minus_font'),
+    re_path(r'^inbox/notifications/', include(notifications.urls, namespace='notifications')),
 ]

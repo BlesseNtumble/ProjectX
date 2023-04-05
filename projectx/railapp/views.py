@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.db.models import QuerySet
 from django.shortcuts import render, redirect
+from notifications.signals import notify
 
 # Create your views here.
 from django.urls import reverse_lazy
@@ -18,7 +19,7 @@ from railapp.apps import template
 from django.http import HttpResponse, HttpResponseNotAllowed
 
 from railapp.forms import RegisterForms
-from railapp.models import Settings, ChatList, Chat, Roles
+from railapp.models import Settings, ChatList, Chat, Roles, CustomUser
 
 
 @login_required(login_url='/login')
@@ -71,6 +72,7 @@ def chatdetail(request, slug):
                'sos_wagon': api.get_setting('sos_active')[3:-1],
                'alert_np': api.get_setting('alert_np')}
 
+
     if request.POST and not chatlist.is_readonly:
         text = request.POST.get('text', None)
         if text:
@@ -80,9 +82,10 @@ def chatdetail(request, slug):
             message.text = text
             message.date = timezone.now()
             message.save()
-
             if request.user.role.name == 'Начальник поезда':
                 messages.info(request, text)
+                userlist = CustomUser.objects.exclude(id=request.user.id)
+                notify.send(request.user, recipient=userlist, verb=text, description=request.POST.get(text))
 
     return render(request, template + '/chat-detail.html', context=context)
 
