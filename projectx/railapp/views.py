@@ -110,11 +110,13 @@ def routes(request):
     routes_d = api.get_station_list_direct(int(number))
     routes_r = api.get_station_list_reverse(int(number))
     next_station = api.get_next_station(int(number))
+    current_station = api.get_current_station(int(number))
 
     routes = routes_d | routes_r
 
     context = {'title': 'Маршрут', 'routes': routes, 'routes_len': len(routes),
-               'next_station': next_station, 'sos': api.get_setting('sos_active').__contains__('[1,'),
+               'next_station': next_station, 'current_station': current_station,
+               'sos': api.get_setting('sos_active').__contains__('[1,'),
                'sos_wagon': api.get_setting('sos_active')[3:-1],
                'alert_np': api.get_setting('alert_np')}
     return render(request, template + '/routes.html', context=context)

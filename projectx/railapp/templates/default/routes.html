@@ -38,15 +38,14 @@
                         {% endif %}
                     </div>
                     <div class="col">
-                        {% if el.id == next_station.id %}
+                        {% if el.id == current_station.id %}
                             <h2>
-                                {% if el.on_station %} Следующая: {% endif %} В пути к: Станция {{ el.station }}
+                                Текущая станция: {{ el.station }}
                             </h2>
                         {% else %}
-                            <h4>
-                                {% if el.id == current_station.id %}Текущая Станция: {% else %}
-                                    Станция {% endif %}{{ el.station }}
-                            </h4>
+                            <h2>
+                                {% if el.id == next_station.id %} Следующая: {% endif %} Станция {{ el.station }}
+                            </h2>
                         {% endif %}
 
                     </div>
@@ -60,17 +59,15 @@
                              style="color:#C52E32;opacity:1;width: 5px;height: 100%;"></div>
                     </div>
                     <div class="col">
-                        {% if el.id == next_station.id %}
+                        {% if el.id == current_station.id %}
                             <h2>
                                <p class="my-0 fs-4">Дата прибытия: {{ el.start_date }}</p>
                                 <p class="my-0 fs-4"> Дата отправления: {{ el.end_date }}</p>
                                 <p class="my-0 fs-4"> Время стоянки: {{ el.minus }}</p>
                             </h2>
-                            </h2>
                         {% else %}
-                            <p>
-                                {{ el.start_date }}
-                            </p>
+                            <p class="my-0">Дата прибытия: {{ el.start_date }}</p>
+                            <p class="my-0">Дата отправления: {{ el.end_date }}</p>
                         {% endif %}
                     </div>
                 </div>

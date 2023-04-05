@@ -52,7 +52,7 @@ class StationList(models.Model):
         verbose_name_plural = 'Маршрутные листы'
 
     def on_station(self):
-        now = datetime.now(timezone.utc)
+        now = datetime.now().astimezone()
         start = self.start_date
         end = self.end_date
         return (now > start and now < end)
@@ -60,11 +60,14 @@ class StationList(models.Model):
     def minus(self):
         start = self.start_date
         if self.on_station():
-            start = datetime.now(timezone.utc)
+            start = datetime.now().astimezone()
         end = self.end_date
-        res = (end - start).seconds
+        res = 0
+        if end is not None:
+            res = (end - start).seconds
 
         return self._convert_to_preferred_format(res)
+
 
     def _convert_to_preferred_format(self, sec):
         sec = sec % (24 * 3600)
@@ -73,7 +76,7 @@ class StationList(models.Model):
         min = sec // 60
         sec %= 60
 
-        return "%02d:%02d" % (min, sec)
+        return "%02d:%02d:%02d" % (hour, min, sec)
 
 class ChatList(models.Model):
     chat_name = models.CharField(max_length=256, null=False, blank=False)
